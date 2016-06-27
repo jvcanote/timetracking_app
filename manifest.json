@@ -57,6 +57,11 @@
       "name": "simple_submission",
       "type": "checkbox",
       "default": false
+    },
+    {
+      "name": "debug_prevent_huge_times",
+      "type": "checkbox",
+      "default": false
     }
   ]
 }
