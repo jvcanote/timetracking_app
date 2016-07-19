@@ -13,7 +13,7 @@
   }
 
   return {
-    SETUP_INFO: 'https://support.zendesk.com/entries/69791168-Setting-up-the-Time-Tracking-app',
+    SETUP_INFO: 'https://support.zendesk.com/hc/%@/articles/203662506',
 
     storage: {},
 
@@ -291,7 +291,14 @@
           });
 
           if (!valid) {
-            this.switchTo('setup_info', { link: this.SETUP_INFO });
+            var localeString = this.currentUser().locale().toLowerCase();
+            if (localeString === 'pt') {
+              localeString = 'pt-br';
+            } else if (localeString.indexOf('en') === 0) {
+              localeString = 'en-us';
+            }
+            var link = this.SETUP_INFO.fmt(localeString);
+            this.switchTo('setup_info', { link: link });
             this.$('.expand-bar').remove();
             this.onAppWillDestroy();
           }
