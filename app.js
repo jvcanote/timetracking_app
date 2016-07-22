@@ -292,7 +292,7 @@
 
           if (!valid) {
             var localeString = this.currentUser().locale().toLowerCase();
-            if (localeString === 'pt') {
+            if (localeString.indexOf('pt') === 0) {
               localeString = 'pt-br';
             } else if (localeString.indexOf('en') === 0) {
               localeString = 'en-us';
