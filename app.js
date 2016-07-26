@@ -291,17 +291,8 @@
           });
 
           if (!valid) {
-            var localeString = this.currentUser().locale().toLowerCase();
-            if (localeString.indexOf('pt') === 0) {
-              localeString = 'pt-br';
-            } else if (localeString.indexOf('en') === 0) {
-              localeString = 'en-us';
-            } else if (localeString.indexOf('es') == 0) {
-              localeString = 'es';
-            } else if (localeString.indexOf('fr') === 0) {
-              localeString = 'fr';
-            }
-            var link = this.SETUP_INFO.fmt(localeString);
+            var localeString = this.generateLocaleForHC();
+            var link = helpers.fmt(this.SETUP_INFO, localeString);
             this.switchTo('setup_info', { link: link });
             this.$('.expand-bar').remove();
             this.onAppWillDestroy();
@@ -467,6 +458,20 @@
       }
 
       return parseInt((this.ticket().customField(fieldLabel) || 0), 10);
+    },
+
+    generateLocaleForHC: function() {
+      var localeString = this.currentUser().locale().toLowerCase();
+      if (localeString.indexOf('pt') === 0) {
+        localeString = 'pt-br';
+      } else if (localeString.indexOf('en') === 0) {
+        localeString = 'en-us';
+      } else if (localeString.indexOf('es') == 0) {
+        localeString = 'es';
+      } else if (localeString.indexOf('fr') === 0) {
+        localeString = 'fr';
+      }
+      return localeString;
     },
 
     TimeHelper: {
