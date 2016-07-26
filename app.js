@@ -291,8 +291,7 @@
           });
 
           if (!valid) {
-            var localeString = this.generateLocaleForHC();
-            var link = helpers.fmt(this.SETUP_INFO, localeString);
+            var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
             this.switchTo('setup_info', { link: link });
             this.$('.expand-bar').remove();
             this.onAppWillDestroy();
@@ -460,7 +459,7 @@
       return parseInt((this.ticket().customField(fieldLabel) || 0), 10);
     },
 
-    generateLocaleForHC: function() {
+    localeForHC: function() {
       var localeString = this.currentUser().locale().toLowerCase();
       if (localeString.indexOf('pt') === 0) {
         localeString = 'pt-br';
