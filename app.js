@@ -103,7 +103,7 @@
     },
 
     onTicketSave: function() {
-      if (this.setting('time_submission') && this.visible()) {
+      if (this.setting('time_submission') && this.visible() && !this.invalid) {
         return this.promise(function(done, fail) {
           this.saveHookPromiseDone = done;
           this.saveHookPromiseFail = fail;
@@ -291,6 +291,7 @@
           });
 
           if (!valid) {
+            this.invalid = true;
             var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
             this.switchTo('setup_info', { link: link });
             this.$('.expand-bar').remove();
