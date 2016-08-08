@@ -13,7 +13,7 @@
     "ticket_sidebar"
   ],
   "frameworkVersion": "1.0",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "parameters": [
     {
       "name": "time_field_id",
