@@ -15,6 +15,10 @@
   return {
     SETUP_INFO: 'https://support.zendesk.com/hc/%@/articles/203662506',
 
+    // Debugging only: only allow this maximum of seconds for any time tracking
+    // update.
+    MAX_TIME: 1209600, // 1209600 = two weeks in seconds
+
     storage: {},
 
     requests: {
@@ -102,6 +106,26 @@
       _.defer(this.hideFields.bind(this));
     },
 
+    maxValueExceededDebugLogs: function(fname, timeAttempt) {
+      // adding debugging setting for customers having issues with agents
+      // submitting large values due to a possible bug
+      //
+      // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
+      var timestamp = new Date().toISOString();
+
+      console.group('Zendesk Time Tracking App - Large Value Debug mode');
+      console.log('DEBUG: Starting debug dump for administrators');
+      console.log('DEBUG: Timestamp: ' + timestamp);
+      console.log('DEBUG: Running in function ' + fname + '()');
+      console.log('DEBUG: Time spent value attempt (s): ' + timeAttempt);
+      console.log('DEBUG: Which is greater than MAX_TIME (s) of: ' + 
+          this.MAX_TIME);
+      console.log('DEBUG: performance object exists: ' + 
+          (typeof performance == "object" ? 'yes' : 'no'));
+      console.log('DEBUG: performance.now function exists: ' + 
+          (typeof performance.now == "function" ? 'yes' : 'no'));
+    },
+
     onTicketSave: function() {
       if (this.setting('time_submission') && this.visible() && !this.invalid) {
         return this.promise(function(done, fail) {
@@ -111,6 +135,25 @@
           this.renderTimeModal();
         }.bind(this));
       } else {
+        
+        if (this.setting('debug_prevent_huge_times')) {
+          var timeAttempt = this.elapsedTime();
+           
+          if (timeAttempt > this.MAX_TIME) {
+            // adding debugging setting for customers having issues with agents
+	    // submitting large values due to a possible bug
+	    //
+	    // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
+	    this.maxValueExceededDebugLogs('onTicketSave', timeAttempt);
+            console.log('DEBUG: returning a fail value');
+            console.groupEnd('Zendesk Time Tracking App - Large Value Debug mode');
+            // Throwing an exception here instead of just returning a string
+            throw { message: 'DEBUG - Time Tracking: time spent last' +
+              ' update is too large. Please see console for' +
+              ' details and contact your administrator.' }; 
+          }
+        
+        } 
         this.updateTime(this.elapsedTime());
 
         return true;
@@ -219,10 +262,35 @@
       var timeString = this.$('.modal-time').val();
 
       try {
-        this.updateTime(this.TimeHelper.timeStringToSeconds(timeString, this.setting('simple_submission')));
-        this.saveHookPromiseIsDone = true; // Flag that saveHookPromiseDone is gonna be called after hiding the modal
+
+        // pre-emptive debugging for large values
+        var timeAttempt = this.TimeHelper.timeStringToSeconds(
+                          timeString, this.setting('simple_submission'));
+
+        if (this.setting('debug_prevent_huge_times') &&
+                  timeAttempt > this.MAX_TIME) {
+          // adding debugging setting for customers having issues with agents
+          // submitting large values due to a possible bug
+          //
+          // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
+          this.maxValueExceededDebugLogs('onModalSaveClicked', timeAttempt);
+
+          // Fail updating the ticket by passing a false value to the modal
+          // hide function
+          console.log('DEBUG: setting saveHookPromiseIsDone to false to ' + 
+              'force ticket save failure');
+          this.saveHookPromiseIsDone = false;
+          this.saveHookPromiseIsDoneDebug = true;
+        } else {
+          this.updateTime(timeAttempt);
+          
+          // flag here that saveHookPromiseDone is called after hiding the modal
+          this.saveHookPromiseIsDone = true;
+          this.saveHookPromiseDone();
+        }
+
         this.$('.modal').modal('hide');
-        this.saveHookPromiseDone();
+      
       } catch (e) {
         if (e.message == 'bad_time_format') {
           services.notify(this.I18n.t('errors.bad_time_format'), 'error');
@@ -254,7 +322,14 @@
       clearInterval(this.modalTimeoutID);
 
       if (!this.saveHookPromiseIsDone) {
-        this.saveHookPromiseFail(this.I18n.t('errors.save_hook'));
+        if (this.saveHookPromiseIsDoneDebug) {
+          this.saveHookPromiseFail('DEBUG: This update failed because the time spent is much too high. Please contact your admin and view the developer console for more details.');
+          console.groupEnd('Zendesk Time Tracking App - Large Value Debug mode');
+          // throw an exception as well
+          throw { message: 'DEBUG: This update failed because the time spent is much too high. Please contact your admin and view the developer console for more details.' }; 
+        } else {
+          this.saveHookPromiseFail(this.I18n.t('errors.save_hook'));
+        }
       }
     },
 
