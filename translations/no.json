@@ -37,7 +37,7 @@
       },
       "simple_submission": {
         "label": "Forenklet tidsinnsending",
-        "helpText": "Kundekonsulenter kan legge inn en verdi bare minutter før de sender inn en sak."
+        "helpText": "Kundekonsulenter kan legge inn hvor mange minutter de har brukt før de sender inn en sak."
       }
     }
   },

@@ -37,7 +37,7 @@
       },
       "simple_submission": {
         "label": "Zjednodušené odesílání doby",
-        "helpText": "Vybídněte agenty, aby před odesláním tiketu zadali hodnotu v minutách"
+        "helpText": "Agenti budou vyzváni, aby před odesláním tiketu zadali hodnotu v minutách."
       }
     }
   },

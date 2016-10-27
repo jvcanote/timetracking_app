@@ -32,7 +32,7 @@
         "helpText": "Agenţii pot să reseteze timpul curent petrecut cu un tichet."
       },
       "time_submission": {
-        "label": "Trimitere a timpului editat",
+        "label": "Editare a timpului trimis",
         "helpText": "Agenţii pot să îşi revizuiască şi să îşi editeze timpul înainte de a trimite tichetul."
       },
       "simple_submission": {

@@ -16,8 +16,8 @@
         "helpText": "Agenter kan se tidslog-aktiviteter for tickets."
       },
       "hide_from_agents": {
-        "label": "Skjul app’en fra agenter",
-        "helpText": "App’en vil ikke blive vist for agenter, som ikke har 'Admin'-rollen. Dette forhindrer dem også i at kunne se og redigere tiden ved indsending."
+        "label": "Skjul appen fra agenter",
+        "helpText": "appen vil ikke blive vist for agenter, som ikke har 'Admin'-rollen. Dette forhindrer dem også i at kunne se og redigere tiden ved indsending."
       },
       "manual_pause_resume": {
         "label": "Vis kontrolelementer for timeren",
@@ -25,7 +25,7 @@
       },
       "auto_pause_resume": {
         "label": "Auto-pause",
-        "helpText": "Timeren standser midlertidigt, når agenten navigerer væk fra ticket'en, og går i gang igen, når agenten er vendt tilbage til tickeet'en."
+        "helpText": "Timeren standser midlertidigt, når agenten navigerer væk fra ticketen, og går i gang igen, når agenten er vendt tilbage til ticketen."
       },
       "reset": {
         "label": "Nulstil aktuel tid",
@@ -33,11 +33,11 @@
       },
       "time_submission": {
         "label": "Rediger indsendt tid",
-        "helpText": "Agenter kan gennemse og redigere deres tid, inden de sender ticket'en."
+        "helpText": "Agenter kan gennemse og redigere deres tid, inden de sender ticketen."
       },
       "simple_submission": {
         "label": "Forenklet indsending af tid",
-        "helpText": "Agenter kan indtaste en værdi i minutter, inden ticket’en oprettes"
+        "helpText": "Agenter kan indtaste en værdi i minutter, inden ticketen oprettes"
       }
     }
   },

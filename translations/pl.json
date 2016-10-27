@@ -25,7 +25,7 @@
       },
       "auto_pause_resume": {
         "label": "Automatyczne wstrzymanie",
-        "helpText": "Licznik jest wstrzymywany, gdy agent przechodzi poza zgłoszenie, i wznawiany, gdy agent wraca do zgłoszenia."
+        "helpText": "Licznik jest wstrzymywany, gdy agent odchodzi od zgłoszenia, i wznawiany, gdy agent wraca do zgłoszenia."
       },
       "reset": {
         "label": "Resetuj bieżący czas",

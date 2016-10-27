@@ -79,7 +79,7 @@
       "question": "Hebt u de installatie-instructies voor deze app gevolgd en beide vereiste ticketvelden geconfigureerd op elk ticketformulier?",
       "solution": "Als u dat niet hebt gedaan, raadpleeg dan <a href=\"{{url}}\" target=\"_blank\">deze instructies</a> en ga naar de beheerpagina voor ticketformulieren om de configuratie te voltooien."
     },
-    "save_hook": "U dient uw tijd voor dit ticket in te dienen.",
+    "save_hook": "U dient uw tijd voor dit ticket te registreren.",
     "bad_time_format": "Onjuiste tijdnotatie (HH:MM:SS).",
     "negative_time": "Tijd was negatief. Wordt opnieuw ingesteld op 0."
   }

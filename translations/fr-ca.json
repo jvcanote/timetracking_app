@@ -52,7 +52,7 @@
   "views": {
     "main": {
       "pause": "Pause",
-      "total_time_spent": "Temps total",
+      "total_time_spent": "Temps total ",
       "play": "Lire",
       "reset": "Réinitialiser",
       "timelogs": "Journal horaire",

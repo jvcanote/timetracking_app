@@ -52,7 +52,7 @@
   "views": {
     "main": {
       "pause": "Pause",
-      "total_time_spent": "Temps total",
+      "total_time_spent": "Temps total ",
       "play": "Lire",
       "reset": "Réinitialiser",
       "timelogs": "Journal horaire",
@@ -69,7 +69,7 @@
       "empty": "Aucun journal horaire à afficher"
     },
     "modal": {
-      "body": "C’est le temps que vous avez consacré à ce ticket. Modifiez le temps si nécessaire, puis cliquez sur Envoyer le temps.",
+      "body": "C’est le temps que vous avez consacré à ce ticket. Modifiez le temps si nécessaire, puis cliquez sur « Envoyer le temps ».",
       "close": "Annuler",
       "save": "Envoyer le temps"
     }

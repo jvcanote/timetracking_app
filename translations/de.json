@@ -66,7 +66,7 @@
       "title": "Zeitprotokolle",
       "csv_export": "CSV exportieren",
       "error": "Es können keine Zeitprotokolle geladen werden.",
-      "empty": "Keine Zeitprotokoll zur Anzeige verfügbar"
+      "empty": "Keine Zeitprotokolle zur Anzeige verfügbar"
     },
     "modal": {
       "body": "Dies ist die Zeit, die Sie mit der Bearbeitung dieses Tickets verbracht haben. Nehmen Sie ggf. Änderungen vor und klicken Sie dann auf „Zeit einreichen“.",
