@@ -12,6 +12,7 @@
     "new_ticket_sidebar",
     "ticket_sidebar"
   ],
+  "experiments": {"newCssCompiler": true},
   "frameworkVersion": "1.0",
   "version": "0.4.6",
   "parameters": [
