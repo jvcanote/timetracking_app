@@ -172,31 +172,50 @@
     },
 
     onFetchAllAuditsDone: function() {
-      var status = "",
-          timeDiff,
-          isFollowUp = _.reduce(this.store('audits'), function(isFollowUp, audit) {
-            return isFollowUp || (audit.via && audit.via.source && audit.via.source.rel === 'follow_up');
-          }, false);
+      var status = "";
+      var timeDiff;
 
-      if (isFollowUp) {
-        var audits = this.store('audits'),
-            isThisEvent = function(event) {
-              return event.field_name == this.storage.totalTimeFieldId;
-            };
-        for (var i = 0; i < audits.length; i++) {
-          var audit = audits[i],
+      // separate follow up audits from new audits
+      var followUpAudits = [];
+      var newAudits = [];
+
+      _.each(this.store('audits'), function(audit) {
+        if (!audit.via || !audit.via.source || 
+          audit.via.source.rel !== 'follow_up') {
+            newAudits.push(audit);
+          }
+        else {
+          followUpAudits.push(audit);
+        }
+      });
+
+      if (followUpAudits.length) {
+        // Because of a change with how events are carried over to follow-up
+        // tickets (zendesk/zendesk#26389) we want to only consider new audit
+        // events
+        if (newAudits.length) {
+
+          var isThisEvent = function(event) {
+            return event.field_name == this.storage.totalTimeFieldId;
+          };
+
+          for (var i = 0; i < newAudits.length; i++) {
+            var audit = newAudits[i],
               totalTimeEvent = _.find(audit.events, isThisEvent, this);
 
-          if (totalTimeEvent) break;
+            if (totalTimeEvent) break;
 
-          /* If we got to the last one without breaking out so far, we can reset it */
-          if (i === audits.length - 1) {
-            this.totalTime('0');
+            /* If we got to the last one without breaking out so far, we can reset it */
+            if (i === newAudits.length - 1) {
+              this.totalTime('0');
+            }
           }
+        } else {
+          this.totalTime('0');
         }
       }
 
-      var timelogs = _.reduce(this.store('audits'), function(memo, audit) {
+      var timelogs = _.reduce(newAudits, function(memo, audit) {
             var newStatus = _.find(audit.events, function(event) {
                   return event.field_name == 'status';
                 }, this),
