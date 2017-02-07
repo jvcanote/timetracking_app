@@ -118,11 +118,11 @@
       console.log('DEBUG: Timestamp: ' + timestamp);
       console.log('DEBUG: Running in function ' + fname + '()');
       console.log('DEBUG: Time spent value attempt (s): ' + timeAttempt);
-      console.log('DEBUG: Which is greater than MAX_TIME (s) of: ' + 
+      console.log('DEBUG: Which is greater than MAX_TIME (s) of: ' +
           this.MAX_TIME);
-      console.log('DEBUG: performance object exists: ' + 
+      console.log('DEBUG: performance object exists: ' +
           (typeof performance == "object" ? 'yes' : 'no'));
-      console.log('DEBUG: performance.now function exists: ' + 
+      console.log('DEBUG: performance.now function exists: ' +
           (typeof performance.now == "function" ? 'yes' : 'no'));
     },
 
@@ -135,10 +135,10 @@
           this.renderTimeModal();
         }.bind(this));
       } else {
-        
+
         if (this.setting('debug_prevent_huge_times')) {
           var timeAttempt = this.elapsedTime();
-           
+
           if (timeAttempt > this.MAX_TIME) {
             // adding debugging setting for customers having issues with agents
 	    // submitting large values due to a possible bug
@@ -150,10 +150,10 @@
             // Throwing an exception here instead of just returning a string
             throw { message: 'DEBUG - Time Tracking: time spent last' +
               ' update is too large. Please see console for' +
-              ' details and contact your administrator.' }; 
+              ' details and contact your administrator.' };
           }
-        
-        } 
+
+        }
         this.updateTime(this.elapsedTime());
 
         return true;
@@ -180,7 +180,7 @@
       var newAudits = [];
 
       _.each(this.store('audits'), function(audit) {
-        if (!audit.via || !audit.via.source || 
+        if (!audit.via || !audit.via.source ||
           audit.via.source.rel !== 'follow_up') {
             newAudits.push(audit);
           }
@@ -215,39 +215,42 @@
         }
       }
 
-      var timelogs = _.reduce(newAudits, function(memo, audit) {
-            var newStatus = _.find(audit.events, function(event) {
-                  return event.field_name == 'status';
-                }, this),
-                auditEvent = _.find(audit.events, function(event) {
-                  return event.field_name == this.storage.totalTimeFieldId;
-                }, this);
+      // refresh the timelog display
+      if (this.isTimelogsEnabled()) {
+        var timelogs = _.reduce(newAudits, function(memo, audit) {
+          var newStatus = _.find(audit.events, function(event) {
+            return event.field_name == 'status';
+          }, this),
+          auditEvent = _.find(audit.events, function(event) {
+            return event.field_name == this.storage.totalTimeFieldId;
+          }, this);
 
-            if (newStatus) {
-              status = newStatus.value;
+          if (newStatus) {
+            status = newStatus.value;
+          }
+
+          if (auditEvent) {
+            if (!memo.length) {
+              auditEvent.previous_value = 0;
             }
+            timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
+            memo.push({
+              time: this.TimeHelper.secondsToTimeString(parseInt(timeDiff, 10)),
+              date: new Date(audit.created_at).toLocaleString(),
+              status: status,
+              // Guard around i18n status because some old apps don't have this
+              localized_status: status ? this.I18n.t(helpers.fmt('statuses.%@', status)) : "",
+              user: _.find(this.store('users'), function(user) {
+                return user.id === audit.author_id;
+              })
+            });
+          }
 
-            if (auditEvent) {
-              if (!memo.length) {
-                auditEvent.previous_value = 0;
-              }
-              timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
-              memo.push({
-                time: this.TimeHelper.secondsToTimeString(parseInt(timeDiff, 10)),
-                date: new Date(audit.created_at).toLocaleString(),
-                status: status,
-                // Guard around i18n status because some old apps don't have this
-                localized_status: status ? this.I18n.t(helpers.fmt('statuses.%@', status)) : "",
-                user: _.find(this.store('users'), function(user) {
-                  return user.id === audit.author_id;
-                })
-              });
-            }
+          return memo;
+        }, [], this);
 
-            return memo;
-          }, [], this);
-
-      this.renderTimelogs(timelogs.reverse());
+        this.renderTimelogs(timelogs.reverse());
+      }
     },
 
     onPauseClicked: function(e) {
@@ -296,20 +299,20 @@
 
           // Fail updating the ticket by passing a false value to the modal
           // hide function
-          console.log('DEBUG: setting saveHookPromiseIsDone to false to ' + 
+          console.log('DEBUG: setting saveHookPromiseIsDone to false to ' +
               'force ticket save failure');
           this.saveHookPromiseIsDone = false;
           this.saveHookPromiseIsDoneDebug = true;
         } else {
           this.updateTime(timeAttempt);
-          
+
           // flag here that saveHookPromiseDone is called after hiding the modal
           this.saveHookPromiseIsDone = true;
           this.saveHookPromiseDone();
         }
 
         this.$('.modal').modal('hide');
-      
+
       } catch (e) {
         if (e.message == 'bad_time_format') {
           services.notify(this.I18n.t('errors.bad_time_format'), 'error');
@@ -345,7 +348,7 @@
           this.saveHookPromiseFail('DEBUG: This update failed because the time spent is much too high. Please contact your admin and view the developer console for more details.');
           console.groupEnd('Zendesk Time Tracking App - Large Value Debug mode');
           // throw an exception as well
-          throw { message: 'DEBUG: This update failed because the time spent is much too high. Please contact your admin and view the developer console for more details.' }; 
+          throw { message: 'DEBUG: This update failed because the time spent is much too high. Please contact your admin and view the developer console for more details.' };
         } else {
           this.saveHookPromiseFail(this.I18n.t('errors.save_hook'));
         }
@@ -433,7 +436,7 @@
     },
 
     getTimelogs: function() {
-      if (this.isTimelogsEnabled()) { this.fetchAllAudits(); }
+      if (this.ticket() && this.ticket().id()) { this.fetchAllAudits(); }
     },
 
     updateMainView: function(time) {
