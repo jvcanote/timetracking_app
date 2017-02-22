@@ -40,7 +40,7 @@
     events: {
       'app.created'             : 'onAppCreated',
       'app.activated'           : 'onAppActivated',
-      'app.deactivated'         : 'onAppFocusOut',
+      'app.deactivated'         : 'onAppDeactivated',
       'app.willDestroy'         : 'onAppWillDestroy',
       'ticket.save'             : 'onTicketSave',
       'ticket.submit.done'      : 'onTicketSubmitDone',
@@ -90,7 +90,7 @@
       clearInterval(this.timeLoopID);
     },
 
-    onAppFocusOut: function() {
+    onAppDeactivated: function() {
       if (this.setting('auto_pause_resume')) {
         this.autoPause();
       }
