@@ -87,7 +87,7 @@
     },
 
     onAppWillDestroy: function() {
-      clearInterval(this.timeLoopID);
+      this.clearTimeLoop();
     },
 
     onAppDeactivated: function() {
@@ -409,7 +409,7 @@
       this.hideFields();
       this.checkForms();
 
-      this.timeLoopID = this.setTimeLoop();
+      this.setTimeLoop();
 
       this.switchTo('main', {
         manualPauseResume: this.setting('manual_pause_resume'),
@@ -480,7 +480,9 @@
       this.lastTick = getTick();
       this.elapsedTime(0);
 
-      return setInterval(function() {
+      if (this.timeLoopID) { throw new Error('There is already a timeloop running for this instance.'); }
+
+      this.timeLoopID = setInterval(function() {
         var now = getTick();
         if (!this.paused) {
           this.realElapsedTime += now - this.lastTick;
@@ -489,6 +491,11 @@
         }
         this.lastTick = now;
       }.bind(this), 1000);
+    },
+
+    clearTimeLoop: function() {
+      clearInterval(this.timeLoopID);
+      this.timeLoopID = undefined;
     },
 
     updateTime: function(time) {
