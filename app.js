@@ -2,6 +2,8 @@
 (function() {
   'use_strict';
 
+  var totalTimeFieldId, timeFieldId;
+
   function getTick() {
     // for newer browsers rely on performance.now()
     if (typeof performance !== 'undefined' && performance.now) {
@@ -66,14 +68,15 @@
       if (this.installationId()) {
         var totalTimeField = this.requirement('total_time_field'),
             timeLastUpdateField = this.requirement('time_last_update_field');
-        this.storage.totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
-        this.storage.timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
+
+        totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
+        timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
 
         this.initialize();
       } else {
         _.defer(this.initialize.bind(this));
-        this.storage.totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
-        this.storage.timeFieldId = parseInt(this.setting('time_field_id'), 10);
+        totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
+        timeFieldId = parseInt(this.setting('time_field_id'), 10);
       }
       if (this.setting('hide_from_agents') && this.currentUser().role() !== 'admin') {
         this.hide();
@@ -196,7 +199,7 @@
         if (newAudits.length) {
 
           var isThisEvent = function(event) {
-            return event.field_name == this.storage.totalTimeFieldId;
+            return event.field_name == totalTimeFieldId;
           };
 
           for (var i = 0; i < newAudits.length; i++) {
@@ -222,7 +225,7 @@
             return event.field_name == 'status';
           }, this),
           auditEvent = _.find(audit.events, function(event) {
-            return event.field_name == this.storage.totalTimeFieldId;
+            return event.field_name == totalTimeFieldId;
           }, this);
 
           if (newStatus) {
@@ -375,8 +378,8 @@
           fetch.call(this, data.next_page);
         } else {
           var requiredTicketFieldIds = [
-                this.storage.timeFieldId,
-                this.storage.totalTimeFieldId
+                timeFieldId,
+                totalTimeFieldId
               ];
 
           forms = _.filter(forms, function(form) {
@@ -545,11 +548,11 @@
     },
 
     totalTimeFieldLabel: function() {
-      return this.buildFieldLabel(this.storage.totalTimeFieldId);
+      return this.buildFieldLabel(totalTimeFieldId);
     },
 
     timeFieldLabel: function() {
-      return this.buildFieldLabel(this.storage.timeFieldId);
+      return this.buildFieldLabel(timeFieldId);
     },
 
     buildFieldLabel: function(id) {
