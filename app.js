@@ -493,7 +493,7 @@
 
       this.timeLoopID = setInterval(function() {
         var now = getTick();
-        if (!this.paused) {
+        if (!this.isPaused()) {
           this.realElapsedTime += now - this.lastTick;
 
           this.updateMainView(this.elapsedTime());
@@ -538,29 +538,30 @@
       this.startPausedTime = 0;
     },
 
-    pause: function() {
-      this.paused = true;
+    isPaused: function() {
+      return !!this.startPausedTime;
+    },
 
-      if (this.startPausedTime) throw new Error('Pause with already pause?');
+    pause: function() {
+      if (this.isPaused()) return;
       this.startPausedTime = getTick();
     },
 
     resume: function() {
-      this.paused = false;
-
-      if (!this.startPausedTime) throw new Error('Resume without ever getting paused?');
+      if (!this.isPaused()) return;
       this.realElapsedTimePaused += getTick() - this.startPausedTime;
       this.startPausedTime = 0;
     },
 
     clearNewTimers: function() {
-      var ticketTime = this.startTick - getTick();
+      var ticketTime = getTick() - this.startTick;
 
+      this.resume(); // Make sure to unpause to calculate paused timer.
       if (ticketTime < this.realElapsedTimePaused) {
-        throw new Error('We paused more than we spent time on the ticket? Impossible!');
+        throw new Error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.realElapsedTimePaused));
       }
 
-      var timeSpent = ticketTime - this.realElapsedTimePaused;
+      var timeSpent = (ticketTime - this.realElapsedTimePaused) / 1000 | 0;
 
       this.time(timeSpent);
       this.totalTime(this.totalTime() + timeSpent);
