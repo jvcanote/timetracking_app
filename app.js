@@ -479,7 +479,7 @@
      */
 
     elapsedTime: function(time) {
-      if (typeof time !== "undefined") {
+      if (time !== undefined) {
         this.realElapsedTime = time * 1000;
       }
       return (this.realElapsedTime / 1000) | 0; // bitwise or for rounding
@@ -582,7 +582,7 @@
     time: function(time) {
       var fieldLabel = helpers.fmt('custom_field_%@', timeFieldId);
 
-      if (typeof time !== 'undefined') {
+      if (time !== undefined) {
         return this.ticket().customField(fieldLabel, time);
       } else {
         return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
@@ -590,10 +590,10 @@
     },
 
     totalTime: function(time) {
-      if (this.currentLocation() === 'new_ticket_sidebar' && typeof time === 'undefined') return 0;
+      if (this.currentLocation() === 'new_ticket_sidebar' && time === undefined) return 0;
       var fieldLabel = helpers.fmt('custom_field_%@', totalTimeFieldId);
 
-      if (typeof time !== 'undefined') {
+      if (time !== undefined) {
         return this.ticket().customField(fieldLabel, time);
       } else {
         return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
