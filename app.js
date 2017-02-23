@@ -66,19 +66,21 @@
      *
      */
     onAppCreated: function() {
-      if (this.installationId() > 0) {
-        var totalTimeField = this.requirement('total_time_field'),
-            timeLastUpdateField = this.requirement('time_last_update_field');
+      if (timeFieldId && totalTimeFieldId) {
+        if (this.installationId() > 0) {
+          var totalTimeField = this.requirement('total_time_field'),
+              timeLastUpdateField = this.requirement('time_last_update_field');
 
-        totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
-        timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
+          totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
+          timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
 
-        this.initialize();
+          this.initialize();
 
-      } else {
-        _.defer(this.initialize.bind(this));
-        totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
-        timeFieldId = parseInt(this.setting('time_field_id'), 10);
+        } else {
+          _.defer(this.initialize.bind(this));
+          totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
+          timeFieldId = parseInt(this.setting('time_field_id'), 10);
+        }
       }
 
       if (this.setting('hide_from_agents') && this.currentUser().role() !== 'admin') {
@@ -160,7 +162,7 @@
           }
 
         }
-        this.updateTime(this.elapsedTime());
+        this.commitTicketTime();
 
         return true;
       }
@@ -312,7 +314,7 @@
           this.saveHookPromiseIsDone = false;
           this.saveHookPromiseIsDoneDebug = true;
         } else {
-          this.updateTime(timeAttempt);
+          this.commitTicketTime();
 
           // flag here that saveHookPromiseDone is called after hiding the modal
           this.saveHookPromiseIsDone = true;
@@ -507,10 +509,6 @@
       this.timeLoopID = undefined;
     },
 
-    updateTime: function(time) {
-      this.clearNewTimers();
-    },
-
     renderTimeModal: function() {
       if (this.setting('simple_submission')) {
         this.$('.modal-time').val(Math.floor(this.elapsedTime() / 60));
@@ -533,38 +531,42 @@
 
     // new mechanism to count
     resetNewTimers: function() {
-      this.startTick = getTick();
-      this.realElapsedTimePaused = 0;
-      this.startPausedTime = 0;
+      this.startTime = getTick();
+      this.elapsedPausedTime = 0;
+      this.pausedAt = 0;
     },
 
     isPaused: function() {
-      return !!this.startPausedTime;
+      return !!this.pausedAt;
     },
 
     pause: function() {
       if (this.isPaused()) return;
-      this.startPausedTime = getTick();
+      this.pausedAt = getTick();
     },
 
     resume: function() {
       if (!this.isPaused()) return;
-      this.realElapsedTimePaused += getTick() - this.startPausedTime;
-      this.startPausedTime = 0;
+      this.elapsedPausedTime += getTick() - this.pausedAt;
+      this.pausedAt = 0;
     },
 
-    clearNewTimers: function() {
-      var ticketTime = getTick() - this.startTick;
+    ticketTime: function() {
+      var ticketTime = getTick() - this.startTime;
 
       this.resume(); // Make sure to unpause to calculate paused timer.
-      if (ticketTime < this.realElapsedTimePaused) {
-        throw new Error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.realElapsedTimePaused));
+      if (ticketTime < this.elapsedPausedTime) {
+        throw new Error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
       }
 
-      var timeSpent = (ticketTime - this.realElapsedTimePaused) / 1000 | 0;
+      return (ticketTime - this.elapsedPausedTime) / 1000 | 0;
+    },
 
-      this.time(timeSpent);
-      this.totalTime(this.totalTime() + timeSpent);
+    commitTicketTime: function() {
+      var ticketTime = this.ticketTime();
+
+      this.time(ticketTime);
+      this.totalTime(this.totalTime() + ticketTime);
 
       this.resetNewTimers();
     },
