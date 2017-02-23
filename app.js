@@ -4,6 +4,7 @@
 
   var totalTimeFieldId, timeFieldId;
 
+  // returns time in milliseconds
   function getTick() {
     // for newer browsers rely on performance.now()
     if (typeof performance !== 'undefined' && performance.now) {
@@ -65,7 +66,7 @@
      *
      */
     onAppCreated: function() {
-      if (this.installationId()) {
+      if (this.installationId() > 0) {
         var totalTimeField = this.requirement('total_time_field'),
             timeLastUpdateField = this.requirement('time_last_update_field');
 
@@ -73,11 +74,13 @@
         timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
 
         this.initialize();
+
       } else {
         _.defer(this.initialize.bind(this));
         totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
         timeFieldId = parseInt(this.setting('time_field_id'), 10);
       }
+
       if (this.setting('hide_from_agents') && this.currentUser().role() !== 'admin') {
         this.hide();
       }
@@ -95,13 +98,13 @@
 
     onAppDeactivated: function() {
       if (this.setting('auto_pause_resume')) {
-        this.autoPause();
+        this.pause();
       }
     },
 
     onAppFocusIn: function() {
       if (this.setting('auto_pause_resume') && !this.manuallyPaused) {
-        this.autoResume();
+        this.resume();
       }
     },
 
@@ -262,7 +265,8 @@
       $el.find('i').addClass('active');
       this.$('.play i').removeClass('active');
 
-      this.manuallyPaused = this.paused = true;
+      this.manuallyPaused = true;
+      this.pause();
     },
 
     onPlayClicked: function(e) {
@@ -271,7 +275,8 @@
       $el.find('i').addClass('active');
       this.$('.pause i').removeClass('active');
 
-      this.manuallyPaused = this.paused = false;
+      this.manuallyPaused = false;
+      this.resume();
     },
 
     onResetClicked: function() {
@@ -412,6 +417,7 @@
       this.hideFields();
       this.checkForms();
 
+      this.resetNewTimers(); // new mechanism
       this.setTimeLoop();
 
       this.switchTo('main', {
@@ -476,7 +482,7 @@
       if (typeof time !== "undefined") {
         this.realElapsedTime = time * 1000;
       }
-      return (this.realElapsedTime / 1000) | 0;
+      return (this.realElapsedTime / 1000) | 0; // bitwise or for rounding
     },
 
     setTimeLoop: function() {
@@ -502,16 +508,7 @@
     },
 
     updateTime: function(time) {
-      this.time(time);
-      this.totalTime(this.totalTime() + time);
-    },
-
-    autoResume: function() {
-      this.paused = false;
-    },
-
-    autoPause: function() {
-      this.paused = true;
+      this.clearNewTimers();
     },
 
     renderTimeModal: function() {
@@ -526,6 +523,49 @@
     resetElapsedTime: function() {
       this.elapsedTime(0);
       this.updateMainView(this.elapsedTime());
+    },
+
+    /*
+     *
+     * Four new function to calculate time! Independent of any of the other code.
+     *
+     */
+
+    // new mechanism to count
+    resetNewTimers: function() {
+      this.startTick = getTick();
+      this.realElapsedTimePaused = 0;
+      this.startPausedTime = 0;
+    },
+
+    pause: function() {
+      this.paused = true;
+
+      if (this.startPausedTime) throw new Error('Pause with already pause?');
+      this.startPausedTime = getTick();
+    },
+
+    resume: function() {
+      this.paused = false;
+
+      if (!this.startPausedTime) throw new Error('Resume without ever getting paused?');
+      this.realElapsedTimePaused += getTick() - this.startPausedTime;
+      this.startPausedTime = 0;
+    },
+
+    clearNewTimers: function() {
+      var ticketTime = this.startTick - getTick();
+
+      if (ticketTime < this.realElapsedTimePaused) {
+        throw new Error('We paused more than we spent time on the ticket? Impossible!');
+      }
+
+      var timeSpent = ticketTime - this.realElapsedTimePaused;
+
+      this.time(timeSpent);
+      this.totalTime(this.totalTime() + timeSpent);
+
+      this.resetNewTimers();
     },
 
     /*
