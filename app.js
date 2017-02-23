@@ -459,8 +459,8 @@
     },
 
     hideFields: function() {
-      _.each([this.timeFieldLabel(), this.totalTimeFieldLabel()], function(f) {
-        var field = this.ticketFields(f);
+      _.each([ timeFieldId, totalTimeFieldId ], function(fieldId) {
+        var field = this.ticketFields(helpers.fmt('custom_field_%@', fieldId));
 
         if (field && field.isVisible()) {
           field.hide();
@@ -539,32 +539,24 @@
     },
 
     time: function(time) {
-      return this.getOrSetField(this.timeFieldLabel(), time);
+      var fieldLabel = helpers.fmt('custom_field_%@', timeFieldId);
+
+      if (typeof time !== 'undefined') {
+        return this.ticket().customField(fieldLabel, time);
+      } else {
+        return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
+      }
     },
 
     totalTime: function(time) {
       if (this.currentLocation() === 'new_ticket_sidebar' && typeof time === 'undefined') return 0;
-      return this.getOrSetField(this.totalTimeFieldLabel(), time) || 0;
-    },
+      var fieldLabel = helpers.fmt('custom_field_%@', totalTimeFieldId);
 
-    totalTimeFieldLabel: function() {
-      return this.buildFieldLabel(totalTimeFieldId);
-    },
-
-    timeFieldLabel: function() {
-      return this.buildFieldLabel(timeFieldId);
-    },
-
-    buildFieldLabel: function(id) {
-      return helpers.fmt('custom_field_%@', id);
-    },
-
-    getOrSetField: function(fieldLabel, value) {
-      if (typeof value !== "undefined") {
-        return this.ticket().customField(fieldLabel, value);
+      if (typeof time !== 'undefined') {
+        return this.ticket().customField(fieldLabel, time);
+      } else {
+        return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
       }
-
-      return parseInt((this.ticket().customField(fieldLabel) || 0), 10);
     },
 
     localeForHC: function() {
