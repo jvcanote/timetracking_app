@@ -66,7 +66,7 @@
      *
      */
     onAppCreated: function() {
-      if (timeFieldId && totalTimeFieldId) {
+      if (!timeFieldId || !totalTimeFieldId) {
         if (this.installationId() > 0) {
           var totalTimeField = this.requirement('total_time_field'),
               timeLastUpdateField = this.requirement('time_last_update_field');
@@ -74,14 +74,13 @@
           totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
           timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
 
-          this.initialize();
-
         } else {
-          _.defer(this.initialize.bind(this));
           totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
           timeFieldId = parseInt(this.setting('time_field_id'), 10);
         }
       }
+
+      this.initialize();
 
       if (this.setting('hide_from_agents') && this.currentUser().role() !== 'admin') {
         this.hide();
