@@ -313,7 +313,7 @@
           this.saveHookPromiseIsDone = false;
           this.saveHookPromiseIsDoneDebug = true;
         } else {
-          this.commitTicketTime();
+          this.commitTicketTime(timeAttempt);
 
           // flag here that saveHookPromiseDone is called after hiding the modal
           this.saveHookPromiseIsDone = true;
