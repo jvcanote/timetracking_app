@@ -22,8 +22,6 @@
     // update.
     MAX_TIME: 1209600, // 1209600 = two weeks in seconds
 
-    storage: {},
-
     requests: {
       fetchAuditsPage: function(url) {
         return {
@@ -483,7 +481,7 @@
       if (time !== undefined) {
         this.realElapsedTime = time * 1000;
       }
-      return (this.realElapsedTime / 1000) | 0; // bitwise or for rounding
+      return Math.floor(this.realElapsedTime / 1000);
     },
 
     setTimeLoop: function() {
@@ -558,11 +556,11 @@
         throw new Error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
       }
 
-      return (ticketTime - this.elapsedPausedTime) / 1000 | 0;
+      return Math.floor((ticketTime - this.elapsedPausedTime) / 1000);
     },
 
-    commitTicketTime: function() {
-      var ticketTime = this.ticketTime();
+    commitTicketTime: function(ticketTime) {
+      ticketTime = ticketTime || this.ticketTime();
 
       this.time(ticketTime);
       this.totalTime(this.totalTime() + ticketTime);
