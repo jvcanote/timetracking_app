@@ -552,8 +552,10 @@
       var ticketTime = getTick() - this.startTime;
 
       this.resume(); // Make sure to unpause to calculate paused timer.
+
       if (ticketTime < this.elapsedPausedTime) {
-        throw new Error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
+        console.error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
+        return 0;
       }
 
       return Math.floor((ticketTime - this.elapsedPausedTime) / 1000);
