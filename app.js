@@ -2,6 +2,9 @@
 (function() {
   'use_strict';
 
+  var totalTimeFieldId, timeFieldId;
+
+  // returns time in milliseconds
   function getTick() {
     // for newer browsers rely on performance.now()
     if (typeof performance !== 'undefined' && performance.now) {
@@ -18,8 +21,6 @@
     // Debugging only: only allow this maximum of seconds for any time tracking
     // update.
     MAX_TIME: 1209600, // 1209600 = two weeks in seconds
-
-    storage: {},
 
     requests: {
       fetchAuditsPage: function(url) {
@@ -40,7 +41,7 @@
     events: {
       'app.created'             : 'onAppCreated',
       'app.activated'           : 'onAppActivated',
-      'app.deactivated'         : 'onAppFocusOut',
+      'app.deactivated'         : 'onAppDeactivated',
       'app.willDestroy'         : 'onAppWillDestroy',
       'ticket.save'             : 'onTicketSave',
       'ticket.submit.done'      : 'onTicketSubmitDone',
@@ -63,18 +64,22 @@
      *
      */
     onAppCreated: function() {
-      if (this.installationId()) {
-        var totalTimeField = this.requirement('total_time_field'),
-            timeLastUpdateField = this.requirement('time_last_update_field');
-        this.storage.totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
-        this.storage.timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
+      if (!timeFieldId || !totalTimeFieldId) {
+        if (this.installationId() > 0) {
+          var totalTimeField = this.requirement('total_time_field'),
+              timeLastUpdateField = this.requirement('time_last_update_field');
 
-        this.initialize();
-      } else {
-        _.defer(this.initialize.bind(this));
-        this.storage.totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
-        this.storage.timeFieldId = parseInt(this.setting('time_field_id'), 10);
+          totalTimeFieldId = totalTimeField && totalTimeField.requirement_id;
+          timeFieldId = timeLastUpdateField && timeLastUpdateField.requirement_id;
+
+        } else {
+          totalTimeFieldId = parseInt(this.setting('total_time_field_id'), 10);
+          timeFieldId = parseInt(this.setting('time_field_id'), 10);
+        }
       }
+
+      this.initialize();
+
       if (this.setting('hide_from_agents') && this.currentUser().role() !== 'admin') {
         this.hide();
       }
@@ -87,18 +92,18 @@
     },
 
     onAppWillDestroy: function() {
-      clearInterval(this.timeLoopID);
+      this.clearTimeLoop();
     },
 
-    onAppFocusOut: function() {
+    onAppDeactivated: function() {
       if (this.setting('auto_pause_resume')) {
-        this.autoPause();
+        this.pause();
       }
     },
 
     onAppFocusIn: function() {
       if (this.setting('auto_pause_resume') && !this.manuallyPaused) {
-        this.autoResume();
+        this.resume();
       }
     },
 
@@ -154,7 +159,7 @@
           }
 
         }
-        this.updateTime(this.elapsedTime());
+        this.commitTicketTime();
 
         return true;
       }
@@ -196,7 +201,7 @@
         if (newAudits.length) {
 
           var isThisEvent = function(event) {
-            return event.field_name == this.storage.totalTimeFieldId;
+            return event.field_name == totalTimeFieldId;
           };
 
           for (var i = 0; i < newAudits.length; i++) {
@@ -222,7 +227,7 @@
             return event.field_name == 'status';
           }, this),
           auditEvent = _.find(audit.events, function(event) {
-            return event.field_name == this.storage.totalTimeFieldId;
+            return event.field_name == totalTimeFieldId;
           }, this);
 
           if (newStatus) {
@@ -259,7 +264,8 @@
       $el.find('i').addClass('active');
       this.$('.play i').removeClass('active');
 
-      this.manuallyPaused = this.paused = true;
+      this.manuallyPaused = true;
+      this.pause();
     },
 
     onPlayClicked: function(e) {
@@ -268,7 +274,8 @@
       $el.find('i').addClass('active');
       this.$('.pause i').removeClass('active');
 
-      this.manuallyPaused = this.paused = false;
+      this.manuallyPaused = false;
+      this.resume();
     },
 
     onResetClicked: function() {
@@ -304,7 +311,7 @@
           this.saveHookPromiseIsDone = false;
           this.saveHookPromiseIsDoneDebug = true;
         } else {
-          this.updateTime(timeAttempt);
+          this.commitTicketTime(timeAttempt);
 
           // flag here that saveHookPromiseDone is called after hiding the modal
           this.saveHookPromiseIsDone = true;
@@ -375,8 +382,8 @@
           fetch.call(this, data.next_page);
         } else {
           var requiredTicketFieldIds = [
-                this.storage.timeFieldId,
-                this.storage.totalTimeFieldId
+                timeFieldId,
+                totalTimeFieldId
               ];
 
           forms = _.filter(forms, function(form) {
@@ -409,7 +416,8 @@
       this.hideFields();
       this.checkForms();
 
-      this.timeLoopID = this.setTimeLoop();
+      this.resetNewTimers(); // new mechanism
+      this.setTimeLoop();
 
       this.switchTo('main', {
         manualPauseResume: this.setting('manual_pause_resume'),
@@ -456,8 +464,8 @@
     },
 
     hideFields: function() {
-      _.each([this.timeFieldLabel(), this.totalTimeFieldLabel()], function(f) {
-        var field = this.ticketFields(f);
+      _.each([ timeFieldId, totalTimeFieldId ], function(fieldId) {
+        var field = this.ticketFields(helpers.fmt('custom_field_%@', fieldId));
 
         if (field && field.isVisible()) {
           field.hide();
@@ -470,19 +478,21 @@
      */
 
     elapsedTime: function(time) {
-      if (typeof time !== "undefined") {
+      if (time !== undefined) {
         this.realElapsedTime = time * 1000;
       }
-      return (this.realElapsedTime / 1000) | 0;
+      return Math.floor(this.realElapsedTime / 1000);
     },
 
     setTimeLoop: function() {
       this.lastTick = getTick();
       this.elapsedTime(0);
 
-      return setInterval(function() {
+      if (this.timeLoopID) { throw new Error('There is already a timeloop running for this instance.'); }
+
+      this.timeLoopID = setInterval(function() {
         var now = getTick();
-        if (!this.paused) {
+        if (!this.isPaused()) {
           this.realElapsedTime += now - this.lastTick;
 
           this.updateMainView(this.elapsedTime());
@@ -491,17 +501,9 @@
       }.bind(this), 1000);
     },
 
-    updateTime: function(time) {
-      this.time(time);
-      this.totalTime(this.totalTime() + time);
-    },
-
-    autoResume: function() {
-      this.paused = false;
-    },
-
-    autoPause: function() {
-      this.paused = true;
+    clearTimeLoop: function() {
+      clearInterval(this.timeLoopID);
+      this.timeLoopID = undefined;
     },
 
     renderTimeModal: function() {
@@ -520,6 +522,56 @@
 
     /*
      *
+     * Four new function to calculate time! Independent of any of the other code.
+     *
+     */
+
+    // new mechanism to count
+    resetNewTimers: function() {
+      this.startTime = getTick();
+      this.elapsedPausedTime = 0;
+      this.pausedAt = 0;
+    },
+
+    isPaused: function() {
+      return !!this.pausedAt;
+    },
+
+    pause: function() {
+      if (this.isPaused()) return;
+      this.pausedAt = getTick();
+    },
+
+    resume: function() {
+      if (!this.isPaused()) return;
+      this.elapsedPausedTime += getTick() - this.pausedAt;
+      this.pausedAt = 0;
+    },
+
+    ticketTime: function() {
+      var ticketTime = getTick() - this.startTime;
+
+      this.resume(); // Make sure to unpause to calculate paused timer.
+
+      if (ticketTime < this.elapsedPausedTime) {
+        console.error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
+        return 0;
+      }
+
+      return Math.floor((ticketTime - this.elapsedPausedTime) / 1000);
+    },
+
+    commitTicketTime: function(ticketTime) {
+      ticketTime = ticketTime || this.ticketTime();
+
+      this.time(ticketTime);
+      this.totalTime(this.totalTime() + ticketTime);
+
+      this.resetNewTimers();
+    },
+
+    /*
+     *
      * UTILS
      *
      */
@@ -529,32 +581,24 @@
     },
 
     time: function(time) {
-      return this.getOrSetField(this.timeFieldLabel(), time);
+      var fieldLabel = helpers.fmt('custom_field_%@', timeFieldId);
+
+      if (time !== undefined) {
+        return this.ticket().customField(fieldLabel, time);
+      } else {
+        return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
+      }
     },
 
     totalTime: function(time) {
-      if (this.currentLocation() === 'new_ticket_sidebar' && typeof time === 'undefined') return 0;
-      return this.getOrSetField(this.totalTimeFieldLabel(), time) || 0;
-    },
+      if (this.currentLocation() === 'new_ticket_sidebar' && time === undefined) return 0;
+      var fieldLabel = helpers.fmt('custom_field_%@', totalTimeFieldId);
 
-    totalTimeFieldLabel: function() {
-      return this.buildFieldLabel(this.storage.totalTimeFieldId);
-    },
-
-    timeFieldLabel: function() {
-      return this.buildFieldLabel(this.storage.timeFieldId);
-    },
-
-    buildFieldLabel: function(id) {
-      return helpers.fmt('custom_field_%@', id);
-    },
-
-    getOrSetField: function(fieldLabel, value) {
-      if (typeof value !== "undefined") {
-        return this.ticket().customField(fieldLabel, value);
+      if (time !== undefined) {
+        return this.ticket().customField(fieldLabel, time);
+      } else {
+        return parseInt(this.ticket().customField(fieldLabel) || 0, 10);
       }
-
-      return parseInt((this.ticket().customField(fieldLabel) || 0), 10);
     },
 
     localeForHC: function() {
