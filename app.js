@@ -134,6 +134,8 @@
     onTicketSave: function() {
       if (this.setting('time_submission') && this.visible() && !this.invalid) {
         return this.promise(function(done, fail) {
+          this.saveHookPromiseIsDone = false;
+          this.saveHookPromiseIsDoneDebug = false;
           this.saveHookPromiseDone = done;
           this.saveHookPromiseFail = fail;
 
