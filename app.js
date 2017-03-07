@@ -216,11 +216,11 @@
 
             /* If we got to the last one without breaking out so far, we can reset it */
             if (i === newAudits.length - 1) {
-              this.totalTime('0');
+              this.ticketFieldTotalTime('0');
             }
           }
         } else {
-          this.totalTime('0');
+          this.ticketFieldTotalTime('0');
         }
       }
 
@@ -454,7 +454,7 @@
     updateMainView: function(time) {
       this.$('.live-timer').html(TimeHelpers.secondsToTimeString(time));
       this.$('.live-totaltimer').html(TimeHelpers.secondsToTimeString(
-        this.totalTime() + time
+        this.ticketFieldTotalTime() + time
       ));
     },
 
@@ -578,8 +578,8 @@
 
       // only update if ticketTime is > 0
       if (ticketTime) {
-        this.time(ticketTime);
-        this.totalTime(this.totalTime() + ticketTime);
+        this.ticketFieldTime(ticketTime);
+        this.ticketFieldTotalTime(this.ticketFieldTotalTime() + ticketTime);
       }
 
       this.resetNewTimers();
@@ -599,7 +599,7 @@
       return this.ticket() && this.ticket().id() && this.setting('display_timelogs');
     },
 
-    time: function(time) {
+    ticketFieldTime: function(time) {
       var fieldLabel = helpers.fmt('custom_field_%@', timeFieldId);
 
       if (time !== undefined) {
@@ -609,7 +609,7 @@
       }
     },
 
-    totalTime: function(time) {
+    ticketFieldTotalTime: function(time) {
       if (this.currentLocation() === 'new_ticket_sidebar' && time === undefined) return 0;
       var fieldLabel = helpers.fmt('custom_field_%@', totalTimeFieldId);
 
