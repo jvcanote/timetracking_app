@@ -558,7 +558,8 @@
       return this.elapsedPausedTime + (getTick() - this.pausedAt);
     },
 
-    ticketTime: function() {
+    // returns open ticket time - paused time
+    elapsedTimeV2: function() {
       var ticketTime = getTick() - this.startTime;
 
       var pausedTime = this.pausedTime(); // Make sure to calculate paused timer.
@@ -572,7 +573,7 @@
     },
 
     commitTicketTime: function(ticketTime) {
-      ticketTime = ticketTime !== undefined ? ticketTime : this.ticketTime();
+      ticketTime = ticketTime !== undefined ? ticketTime : this.elapsedTimeV2();
 
       var wasPaused = this.isPaused();
 
