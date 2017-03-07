@@ -555,8 +555,13 @@
       this.pausedAt = 0;
     },
 
+    // Sets the amount of time paused.
+    // If called again, make sure we don't calculate the paused time double.
     setPausedTime: function() {
-      this.elapsedPausedTime += getTick() - this.pausedAt;
+      if (!this.isPaused()) return;
+      var tick = getTick();
+      this.elapsedPausedTime += tick - this.pausedAt;
+      this.pausedAt = tick;
     },
 
     ticketTime: function() {
