@@ -4,6 +4,8 @@
 
   var totalTimeFieldId, timeFieldId;
 
+  var TimeHelpers = require('time_helpers');
+
   // returns time in milliseconds
   function getTick() {
     // for newer browsers rely on performance.now()
@@ -242,7 +244,7 @@
             }
             timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
             memo.push({
-              time: this.TimeHelper.secondsToTimeString(parseInt(timeDiff, 10)),
+              time: TimeHelpers.secondsToTimeString(parseInt(timeDiff, 10)),
               date: new Date(audit.created_at).toLocaleString(),
               status: status,
               // Guard around i18n status because some old apps don't have this
@@ -295,7 +297,7 @@
       try {
 
         // pre-emptive debugging for large values
-        var timeAttempt = this.TimeHelper.timeStringToSeconds(
+        var timeAttempt = TimeHelpers.timeStringToSeconds(
                           timeString, this.setting('simple_submission'));
 
         if (this.setting('debug_prevent_huge_times') &&
@@ -450,8 +452,8 @@
     },
 
     updateMainView: function(time) {
-      this.$('.live-timer').html(this.TimeHelper.secondsToTimeString(time));
-      this.$('.live-totaltimer').html(this.TimeHelper.secondsToTimeString(
+      this.$('.live-timer').html(TimeHelpers.secondsToTimeString(time));
+      this.$('.live-totaltimer').html(TimeHelpers.secondsToTimeString(
         this.totalTime() + time
       ));
     },
@@ -512,7 +514,7 @@
       if (this.setting('simple_submission')) {
         this.$('.modal-time').val(Math.floor(this.elapsedTime() / 60));
       } else {
-        this.$('.modal-time').val(this.TimeHelper.secondsToTimeString(this.elapsedTime()));
+        this.$('.modal-time').val(TimeHelpers.secondsToTimeString(this.elapsedTime()));
       }
       this.$('.modal').modal('show');
     },
@@ -634,56 +636,6 @@
         localeString = 'fr';
       }
       return localeString;
-    },
-
-    TimeHelper: {
-      secondsToTimeString: function(seconds) {
-        var negative = seconds < 0,
-            absValue = Math.abs(seconds),
-            hours    = Math.floor(absValue / 3600),
-            minutes  = Math.floor((absValue - (hours * 3600)) / 60),
-            secs     = absValue - (hours * 3600) - (minutes * 60);
-
-        var timeString = helpers.fmt('%@:%@:%@',
-          this.addInsignificantZero(hours),
-          this.addInsignificantZero(minutes),
-          this.addInsignificantZero(secs)
-        );
-
-        return (negative ? '-' : '') + timeString;
-      },
-
-      simpleFormat: /^-?\d+$/,
-
-      complexFormat: /^(\d{0,2}):(\d{0,2}):(\d{0,2})$/,
-
-      timeStringToSeconds: function(timeString, simple) {
-        var result;
-
-        if (simple) {
-          result = timeString.match(this.simpleFormat);
-
-          if (!result) { throw { message: 'bad_time_format' }; }
-
-          return parseInt(result[0], 10) * 60;
-        } else {
-          result = timeString.match(this.complexFormat);
-
-          if (!result || result.length != 4) { throw { message: 'bad_time_format' }; }
-
-          return this.parseIntWithDefault(result[1]) * 3600 +
-            this.parseIntWithDefault(result[2]) * 60 +
-            this.parseIntWithDefault(result[3]);
-        }
-      },
-
-      parseIntWithDefault: function(num, def) {
-        return parseInt(num, 10) || def || 0;
-      },
-
-      addInsignificantZero: function(n) {
-        return ( n < 10 ? '0' : '') + n;
-      }
     }
   };
 }());
