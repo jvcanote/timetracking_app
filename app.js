@@ -575,7 +575,8 @@
     commitTicketTime: function(ticketTime) {
       ticketTime = ticketTime !== undefined ? ticketTime : this.elapsedTimeV2();
 
-      // For stay on ticket, we don't want the timer to start counting again.
+      // For stay on ticket, we don't want the timer to start counting again
+      // and calling resetNewTimers resets the pause state.
       var wasPaused = this.isPaused();
 
       // only update if ticketTime is > 0
