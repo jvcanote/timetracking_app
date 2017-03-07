@@ -551,13 +551,13 @@
 
     resume: function() {
       if (!this.isPaused()) return;
-      this.setPausedTime();
+      this.calcPausedTime();
       this.pausedAt = 0;
     },
 
     // Sets the amount of time paused.
     // If called again, make sure we don't calculate the paused time double.
-    setPausedTime: function() {
+    calcPausedTime: function() {
       if (!this.isPaused()) return;
       var tick = getTick();
       this.elapsedPausedTime += tick - this.pausedAt;
@@ -567,7 +567,7 @@
     ticketTime: function() {
       var ticketTime = getTick() - this.startTime;
 
-      this.setPausedTime(); // Make sure to calculate paused timer.
+      this.calcPausedTime(); // Make sure to calculate paused timer.
 
       if (ticketTime < this.elapsedPausedTime) {
         console.error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
