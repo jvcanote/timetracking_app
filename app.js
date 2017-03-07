@@ -141,17 +141,17 @@
 
           this.renderTimeModal();
         }.bind(this));
-      } else {
 
+      } else {
         if (this.setting('debug_prevent_huge_times')) {
           var timeAttempt = this.elapsedTime();
 
           if (timeAttempt > this.MAX_TIME) {
             // adding debugging setting for customers having issues with agents
-	    // submitting large values due to a possible bug
-	    //
-	    // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
-	    this.maxValueExceededDebugLogs('onTicketSave', timeAttempt);
+      	    // submitting large values due to a possible bug
+      	    //
+      	    // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
+      	    this.maxValueExceededDebugLogs('onTicketSave', timeAttempt);
             console.log('DEBUG: returning a fail value');
             console.groupEnd('Zendesk Time Tracking App - Large Value Debug mode');
             // Throwing an exception here instead of just returning a string
@@ -533,6 +533,11 @@
       this.startTime = getTick();
       this.elapsedPausedTime = 0;
       this.pausedAt = 0;
+
+      if (this.wasPaused) {
+        this.pause();
+        this.wasPaused = false;
+      }
     },
 
     isPaused: function() {
@@ -546,14 +551,18 @@
 
     resume: function() {
       if (!this.isPaused()) return;
-      this.elapsedPausedTime += getTick() - this.pausedAt;
+      this.setPausedTime();
       this.pausedAt = 0;
+    },
+
+    setPausedTime: function() {
+      this.elapsedPausedTime += getTick() - this.pausedAt;
     },
 
     ticketTime: function() {
       var ticketTime = getTick() - this.startTime;
 
-      this.resume(); // Make sure to unpause to calculate paused timer.
+      this.setPausedTime(); // Make sure to calculate paused timer.
 
       if (ticketTime < this.elapsedPausedTime) {
         console.error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
@@ -564,10 +573,15 @@
     },
 
     commitTicketTime: function(ticketTime) {
-      ticketTime = ticketTime || this.ticketTime();
+      ticketTime = ticketTime !== undefined ? ticketTime : this.ticketTime();
 
-      this.time(ticketTime);
-      this.totalTime(this.totalTime() + ticketTime);
+      this.wasPaused = this.isPaused();
+
+      // only update if ticketTime is > 0
+      if (ticketTime) {
+        this.time(ticketTime);
+        this.totalTime(this.totalTime() + ticketTime);
+      }
 
       this.resetNewTimers();
     },
