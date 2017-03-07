@@ -535,11 +535,6 @@
       this.startTime = getTick();
       this.elapsedPausedTime = 0;
       this.pausedAt = 0;
-
-      if (this.wasPaused) {
-        this.pause();
-        this.wasPaused = false;
-      }
     },
 
     isPaused: function() {
@@ -553,36 +548,33 @@
 
     resume: function() {
       if (!this.isPaused()) return;
-      this.calcPausedTime();
+      this.elapsedPausedTime = this.pausedTime();
       this.pausedAt = 0;
     },
 
-    // Sets the amount of time paused.
-    // If called again, make sure we don't calculate the paused time double.
-    calcPausedTime: function() {
-      if (!this.isPaused()) return;
-      var tick = getTick();
-      this.elapsedPausedTime += tick - this.pausedAt;
-      this.pausedAt = tick;
+    // returns time paused in ms.
+    pausedTime: function() {
+      if (!this.isPaused()) return this.elapsedPausedTime;
+      return this.elapsedPausedTime + (getTick() - this.pausedAt);
     },
 
     ticketTime: function() {
       var ticketTime = getTick() - this.startTime;
 
-      this.calcPausedTime(); // Make sure to calculate paused timer.
+      var pausedTime = this.pausedTime(); // Make sure to calculate paused timer.
 
-      if (ticketTime < this.elapsedPausedTime) {
+      if (ticketTime < pausedTime) {
         console.error(helpers.fmt('We paused more than we spent time on the ticket? Impossible! ticketTime: "%@",pausedTime: "%@"', ticketTime, this.elapsedPausedTime));
         return 0;
       }
 
-      return Math.floor((ticketTime - this.elapsedPausedTime) / 1000);
+      return Math.floor((ticketTime - pausedTime) / 1000);
     },
 
     commitTicketTime: function(ticketTime) {
       ticketTime = ticketTime !== undefined ? ticketTime : this.ticketTime();
 
-      this.wasPaused = this.isPaused();
+      var wasPaused = this.isPaused();
 
       // only update if ticketTime is > 0
       if (ticketTime) {
@@ -591,6 +583,10 @@
       }
 
       this.resetNewTimers();
+
+      if (wasPaused) {
+        this.pause();
+      }
     },
 
     /*
