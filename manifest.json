@@ -16,7 +16,7 @@
     "newCssCompiler": true
   },
   "frameworkVersion": "1.0",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "parameters": [
     {
       "name": "time_field_id",
