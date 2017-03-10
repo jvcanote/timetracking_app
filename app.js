@@ -168,6 +168,29 @@
       }
     },
 
+    onGetTicketFormsDone: function(response) {
+      var requiredTicketFieldIds = [
+            timeFieldId,
+            totalTimeFieldId
+          ];
+
+      var forms = _.filter(response.forms, function(form) {
+        return form.active;
+      });
+
+      var valid = _.all(forms, function(form) {
+        return _.intersection(form.ticket_field_ids, requiredTicketFieldIds).length === requiredTicketFieldIds.length;
+      });
+
+      if (!valid) {
+        this.invalid = true;
+        var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
+        this.switchTo('setup_info', { link: link });
+        this.$('.expand-bar').remove();
+        this.onAppWillDestroy();
+      }
+    },
+
     onGetAuditsDone: function(response) {
       var status = "";
       var timeDiff;
@@ -375,29 +398,6 @@
      * METHODS
      *
      */
-
-    onGetTicketFormsDone: function(response) {
-      var requiredTicketFieldIds = [
-            timeFieldId,
-            totalTimeFieldId
-          ];
-
-      var forms = _.filter(response.forms, function(form) {
-        return form.active;
-      });
-
-      var valid = _.all(forms, function(form) {
-        return _.intersection(form.ticket_field_ids, requiredTicketFieldIds).length === requiredTicketFieldIds.length;
-      });
-
-      if (!valid) {
-        this.invalid = true;
-        var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
-        this.switchTo('setup_info', { link: link });
-        this.$('.expand-bar').remove();
-        this.onAppWillDestroy();
-      }
-    },
 
     initialize: function() {
       this.getTimelogs();
