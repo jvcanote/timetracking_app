@@ -17,28 +17,12 @@
     return (new Date()).valueOf();
   }
 
-  return {
+  return _.extend({}, require('requests'), {
     SETUP_INFO: 'https://support.zendesk.com/hc/%@/articles/203662506',
 
     // Debugging only: only allow this maximum of seconds for any time tracking
     // update.
     MAX_TIME: 1209600, // 1209600 = two weeks in seconds
-
-    requests: {
-      fetchAuditsPage: function(url) {
-        return {
-          url: url || helpers.fmt(
-            '/api/v2/tickets/%@/audits.json?include=users',
-            this.ticket().id()
-          )
-        };
-      },
-      fetchTicketForms: function(url) {
-        return {
-          url: url || '/api/v2/ticket_forms.json'
-        };
-      }
-    },
 
     events: {
       'app.created'             : 'onAppCreated',
@@ -49,8 +33,6 @@
       'ticket.submit.done'      : 'onTicketSubmitDone',
       '*.changed'               : 'onAnyTicketFieldChanged',
       'ticket.updated'          : 'onTicketUpdated',
-      'fetchAuditsPage.done'    : 'onFetchAuditsPageDone',
-      'fetchAllAudits.done'     : 'onFetchAllAuditsDone',
       'click .pause'            : 'onPauseClicked',
       'click .play'             : 'onPlayClicked',
       'click .reset'            : 'onResetClicked',
@@ -186,7 +168,7 @@
       }
     },
 
-    onFetchAllAuditsDone: function() {
+    onGetAuditsDone: function(response) {
       var status = "";
       var timeDiff;
 
@@ -194,7 +176,7 @@
       var followUpAudits = [];
       var newAudits = [];
 
-      _.each(this.store('audits'), function(audit) {
+      _.each(response.audits, function(audit) {
         if (!audit.via || !audit.via.source ||
           audit.via.source.rel !== 'follow_up') {
             newAudits.push(audit);
@@ -255,7 +237,7 @@
               status: status,
               // Guard around i18n status because some old apps don't have this
               localized_status: status ? this.I18n.t(helpers.fmt('statuses.%@', status)) : "",
-              user: _.find(this.store('users'), function(user) {
+              user: _.find(response.users, function(user) {
                 return user.id === audit.author_id;
               })
             });
@@ -394,53 +376,33 @@
      *
      */
 
-    checkForms: (function() {
-      var forms = [];
+    onGetTicketFormsDone: function(response) {
+      var requiredTicketFieldIds = [
+            timeFieldId,
+            totalTimeFieldId
+          ];
 
-      function fetch(url) {
-        this.ajax('fetchTicketForms', url).done(callback.bind(this));
+      var forms = _.filter(response.forms, function(form) {
+        return form.active;
+      });
+
+      var valid = _.all(forms, function(form) {
+        return _.intersection(form.ticket_field_ids, requiredTicketFieldIds).length === requiredTicketFieldIds.length;
+      });
+
+      if (!valid) {
+        this.invalid = true;
+        var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
+        this.switchTo('setup_info', { link: link });
+        this.$('.expand-bar').remove();
+        this.onAppWillDestroy();
       }
-
-      function callback(data) {
-        forms.push.apply(forms, data.ticket_forms);
-
-        if (data.next_page) {
-          fetch.call(this, data.next_page);
-        } else {
-          var requiredTicketFieldIds = [
-                timeFieldId,
-                totalTimeFieldId
-              ];
-
-          forms = _.filter(forms, function(form) {
-            return form.active;
-          });
-
-          var valid = _.all(forms, function(form) {
-            return _.intersection(form.ticket_field_ids, requiredTicketFieldIds).length === requiredTicketFieldIds.length;
-          });
-
-          if (!valid) {
-            this.invalid = true;
-            var link = helpers.fmt(this.SETUP_INFO, this.localeForHC());
-            this.switchTo('setup_info', { link: link });
-            this.$('.expand-bar').remove();
-            this.onAppWillDestroy();
-          }
-        }
-      }
-
-      return function() {
-        if (!this.ticket().form().id()) { return; }
-
-        fetch.call(this);
-      };
-    })(),
+    },
 
     initialize: function() {
       this.getTimelogs();
       this.hideFields();
-      this.checkForms();
+      this.getTicketForms();
 
       this.resetNewTimers(); // new mechanism
       this.setTimeLoop();
@@ -452,25 +414,16 @@
       });
     },
 
-    fetchAllAudits: function(url, data, callback) {
-      this.store('audits', []);
-      this.store('users', []);
-      this.ajax('fetchAuditsPage');
-    },
+    getTicketForms: function() {
+      if (!this.ticket() || !this.ticket().id()) return;
 
-    onFetchAuditsPageDone: function(data) {
-      this.store('audits', this.store('audits').concat(data.audits));
-      this.store('users', this.store('users').concat(data.users));
-
-      if (!data.next_page) {
-        this.trigger('fetchAllAudits.done');
-      } else {
-        this.ajax('fetchAuditsPage', data.next_page);
-      }
+      this.ajaxPaged('ticketForms').done(this.onGetTicketFormsDone.bind(this));
     },
 
     getTimelogs: function() {
-      if (this.ticket() && this.ticket().id()) { this.fetchAllAudits(); }
+      if (!this.ticket() || !this.ticket().id()) return;
+
+      this.ajaxPaged('audits').done(this.onGetAuditsDone.bind(this));
     },
 
     updateMainView: function(time) {
@@ -658,5 +611,5 @@
       }
       return localeString;
     }
-  };
+  });
 }());
