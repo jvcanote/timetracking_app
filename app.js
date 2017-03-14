@@ -200,7 +200,7 @@
 
       var audits = response.audits;
 
-      var audits = _.filter(response.audits, function(audit) {
+      var audits = _.filter(audits, function(audit) {
         var isFollowUp = audit.via && audit.via.source && audit.via.source.rel === 'follow_up';
 
         // if not a follow up, it's good.
