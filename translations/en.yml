@@ -111,6 +111,14 @@ parts:
       title: "This is the explanation helptext of the simple submission checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png"
       value: "Prompt agents to enter a value in minutes before submitting the ticket"
   - translation:
+      key: "txt.apps.time_tracking.app.parameters.debug_prevent_huge_times.label"
+      title: "This is a checkbox setting lable. If the admin checks this box, the agents will not be able to submit 'Time Spent' times exceeding 1209600 seconds, or two weeks."
+      value: "Debug: Block large time spent submissions"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.debug_prevent_huge_times.helpText"
+      title: "This is the explanation helptext of the debug (large time spent) checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png"
+      value: "Blocks submission of a ticket if an agent is trying to submit a ticket with a Time Spent value (in seconds) greater than 1209600s (two weeks)."
+  - translation:
       key: "txt.apps.time_tracking.statuses.new"
       title: "first letter of status new"
       value: "n"
