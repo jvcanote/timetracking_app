@@ -192,74 +192,68 @@
     },
 
     onGetAuditsDone: function(response) {
-      var status = "";
-      var timeDiff;
+      /**
+       * If the follow up was created by the admin, the follow up audit time
+       * is good (because timetracking resets it).
+       * However, if it was created by the end user (or system), we have to discard it.
+       */
 
-      // separate follow up audits from new audits
-      var followUpAudits = [];
-      var newAudits = [];
+      var audits = response.audits;
 
-      _.each(response.audits, function(audit) {
-        if (!audit.via || !audit.via.source ||
-          audit.via.source.rel !== 'follow_up') {
-            newAudits.push(audit);
-          }
-        else {
-          followUpAudits.push(audit);
-        }
+      var audits = _.filter(response.audits, function(audit) {
+        var isFollowUp = audit.via && audit.via.source && audit.via.source.rel === 'follow_up';
+
+        // if not a follow up, it's good.
+        if (!isFollowUp) { return true; }
+
+        // if not created via web, don't trust it.
+        if (audit.via.channel !== 'web') { return false; }
+
+        var author = _.find(response.users, function(user) {
+          return user.id === audit.author_id;
+        })
+
+        // we can trust if it comes from admin or agent.
+        return (author.role === 'admin' || author.role === 'agent');
       });
 
-      if (followUpAudits.length) {
-        // Because of a change with how events are carried over to follow-up
-        // tickets (zendesk/zendesk#26389) we want to only consider new audit
-        // events
-        if (newAudits.length) {
+      // do any of the audits set totalTime?
+      var hasTotalTimeSet = _.some(audits, function(audit) {
+            // find the totalTimeEvent
+            var totalTimeEvent = _.find(audit.events, function(event) {
+                  return event.field_name == totalTimeFieldId;
+                });
 
-          var isThisEvent = function(event) {
-            return event.field_name == totalTimeFieldId;
-          };
+            return !!totalTimeEvent;
+          });
 
-          for (var i = 0; i < newAudits.length; i++) {
-            var audit = newAudits[i],
-              totalTimeEvent = _.find(audit.events, isThisEvent, this);
-
-            if (totalTimeEvent) break;
-
-            /* If we got to the last one without breaking out so far, we can reset it */
-            if (i === newAudits.length - 1) {
-              this.ticketFieldTotalTime('0');
-            }
-          }
-        } else {
-          this.ticketFieldTotalTime('0');
-        }
+      if (!hasTotalTimeSet) {
+        this.ticketFieldTotalTime(0);
       }
 
       // refresh the timelog display
       if (this.isTimelogsEnabled()) {
-        var timelogs = _.reduce(newAudits, function(memo, audit) {
-          var newStatus = _.find(audit.events, function(event) {
+        var timelogs = _.reduce(audits, function(memo, audit) {
+
+          var statusEvent = _.find(audit.events, function(event) {
             return event.field_name == 'status';
-          }, this),
-          auditEvent = _.find(audit.events, function(event) {
+          }, this);
+
+          var auditEvent = _.find(audit.events, function(event) {
             return event.field_name == totalTimeFieldId;
           }, this);
 
-          if (newStatus) {
-            status = newStatus.value;
-          }
-
           if (auditEvent) {
-            if (!memo.length) {
-              auditEvent.previous_value = 0;
-            }
-            timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
+            if (!memo.length) { auditEvent.previous_value = 0; }
+
+            var timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
+
             memo.push({
               time: TimeHelpers.secondsToTimeString(parseInt(timeDiff, 10)),
               date: new Date(audit.created_at).toLocaleString(),
-              status: status,
-              // Guard around i18n status because some old apps don't have this
-              localized_status: status ? this.I18n.t(helpers.fmt('statuses.%@', status)) : "",
+              status: statusEvent && statusEvent.value,
+              // Guard around i18n status because some old tickets don't have this
+              localized_status: statusEvent ? this.I18n.t(helpers.fmt('statuses.%@', statusEvent.value)) : "",
               user: _.find(response.users, function(user) {
                 return user.id === audit.author_id;
               })
