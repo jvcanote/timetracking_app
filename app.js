@@ -54,9 +54,9 @@
       'click .pause'            : 'onPauseClicked',
       'click .play'             : 'onPlayClicked',
       'click .reset'            : 'onResetClicked',
-      'click .modal-save'       : 'onModalSaveClicked',
-      'shown .modal'            : 'onModalShown',
-      'hidden .modal'           : 'onModalHidden',
+      'click .time-modal-save'  : 'onTimeModalSaveClicked',
+      'shown #time-modal'       : 'onTimeModalShown',
+      'hidden #time-modal'      : 'onTimeModalHidden',
       'click .resume-modal-yes' : 'onResumeModalYesClicked',
       'click .resume-modal-no'  : 'onResumeModalNoClicked',
       'click .expand-bar'       : 'onTimelogsClicked'
@@ -297,7 +297,7 @@
       this.$('.expand-bar').toggleClass('expanded');
     },
 
-    onModalSaveClicked: function() {
+    onTimeModalSaveClicked: function() {
       var timeString = this.$('.modal-time').val();
 
       try {
@@ -312,7 +312,7 @@
           // submitting large values due to a possible bug
           //
           // Problem ticket: https://support.zendesk.com/agent/tickets/1637774
-          this.maxValueExceededDebugLogs('onModalSaveClicked', timeAttempt);
+          this.maxValueExceededDebugLogs('onTimeModalSaveClicked', timeAttempt);
 
           // Fail updating the ticket by passing a false value to the modal
           // hide function
@@ -328,7 +328,7 @@
           this.saveHookPromiseDone();
         }
 
-        this.$('.modal').modal('hide');
+        this.$('#time-modal').modal('hide');
 
       } catch (e) {
         if (e.message == 'bad_time_format') {
@@ -339,10 +339,10 @@
       }
     },
 
-    onModalShown: function() {
+    onTimeModalShown: function() {
       var timeout = 15,
           $timeout = this.$('span.modal-timer'),
-          $modal = this.$('.modal');
+          $modal = this.$('#time-modal');
 
       this.modalTimeoutID = setInterval(function() {
         timeout -= 1;
@@ -354,10 +354,10 @@
         }
       }.bind(this), 1000);
 
-      $modal.find('.modal-save').focus();
+      $modal.find('.time-modal-save').focus();
     },
 
-    onModalHidden: function() {
+    onTimeModalHidden: function() {
       clearInterval(this.modalTimeoutID);
 
       if (!this.saveHookPromiseIsDone) {
@@ -537,7 +537,7 @@
       } else {
         this.$('.modal-time').val(TimeHelpers.secondsToTimeString(this.elapsedTime()));
       }
-      this.$('.modal').modal('show');
+      this.$('#time-modal').modal('show');
     },
 
     resetElapsedTime: function() {
