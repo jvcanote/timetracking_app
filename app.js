@@ -57,6 +57,7 @@
       'click .time-modal-save'  : 'onTimeModalSaveClicked',
       'shown #time-modal'       : 'onTimeModalShown',
       'hidden #time-modal'      : 'onTimeModalHidden',
+      'shown #resume-modal'     : 'onResumeModalShown',
       'click .resume-modal-yes' : 'onResumeModalYesClicked',
       'click .resume-modal-no'  : 'onResumeModalNoClicked',
       'click .expand-bar'       : 'onTimelogsClicked'
@@ -370,6 +371,10 @@
           this.saveHookPromiseFail(this.I18n.t('errors.save_hook'));
         }
       }
+    },
+
+    onResumeModalShown: function() {
+      this.$('#resume-modal').find('.resume-modal-yes').focus();
     },
 
     onResumeModalYesClicked: function() {
