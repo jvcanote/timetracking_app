@@ -112,6 +112,9 @@
     onAnyTicketFieldChanged: function() {
       _.defer(this.hideFields.bind(this));
       if (this.setting('resume_on_changes') && this.manuallyPaused) {
+        this.$('.play i').addClass('active');
+        this.$('.pause i').removeClass('active');
+        
         this.resume();
       }
     },
