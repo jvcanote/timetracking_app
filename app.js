@@ -58,6 +58,7 @@
       'shown .modal'            : 'onModalShown',
       'hidden .modal'           : 'onModalHidden',
       'click .resume-modal-yes' : 'onResumeModalYesClicked',
+      'click .resume-modal-no'  : 'onResumeModalNoClicked',
       'click .expand-bar'       : 'onTimelogsClicked'
     },
 
@@ -112,7 +113,7 @@
 
     onAnyTicketFieldChanged: function() {
       _.defer(this.hideFields.bind(this));
-      if (this.setting('resume_on_changes') && this.manuallyPaused) {
+      if (this.setting('resume_on_changes') && this.manuallyPaused && !this.refusedResume) {
         this.$('#resume-modal').modal('show');
       }
     },
@@ -272,6 +273,7 @@
       $el.find('i').addClass('active');
       this.$('.play i').removeClass('active');
 
+      this.refusedResume = false;
       this.manuallyPaused = true;
       this.pause();
     },
@@ -377,6 +379,11 @@
       this.manuallyPaused = false;
       this.resume();
 
+      this.$('#resume-modal').modal('hide');
+    },
+
+    onResumeModalNoClicked: function() {
+      this.refusedResume = true;
       this.$('#resume-modal').modal('hide');
     },
 

@@ -56,7 +56,7 @@
     <p>{{t "views.resume_modal.body"}}</p>
   </div>
   <div class="modal-footer">
-    <button class="btn" aria-hidden="true" data-dismiss="modal">{{t "views.resume_modal.no"}}</button>
+    <button class="btn resume-modal-no">{{t "views.resume_modal.no"}}</button>
     <button class="btn btn-primary resume-modal-yes">{{t "views.resume_modal.yes"}}</button>
   </div>
 </div>
