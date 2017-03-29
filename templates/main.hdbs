@@ -43,7 +43,7 @@
   </div>
   <div class="modal-footer">
     <button class="btn" aria-hidden="true" data-dismiss="modal">{{t "views.modal.close"}} (<span class="modal-timer">15</span>)</button>
-    <button class="btn btn-primary time-modal-save">{{t "views.modal.save"}}</button>
+    <button class="btn btn-primary" id="time-modal-save">{{t "views.modal.save"}}</button>
   </div>
 </div>
 
@@ -56,7 +56,7 @@
     <p>{{t "views.resume_modal.body"}}</p>
   </div>
   <div class="modal-footer">
-    <button class="btn resume-modal-no">{{t "views.resume_modal.no"}}</button>
-    <button class="btn btn-primary resume-modal-yes">{{t "views.resume_modal.yes"}}</button>
+    <button class="btn" id="resume-modal-no">{{t "views.resume_modal.no"}}</button>
+    <button class="btn btn-primary" id="resume-modal-yes">{{t "views.resume_modal.yes"}}</button>
   </div>
 </div>

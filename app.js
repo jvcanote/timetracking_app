@@ -54,12 +54,12 @@
       'click .pause'            : 'onPauseClicked',
       'click .play'             : 'onPlayClicked',
       'click .reset'            : 'onResetClicked',
-      'click .time-modal-save'  : 'onTimeModalSaveClicked',
+      'click #time-modal-save'  : 'onTimeModalSaveClicked',
       'shown #time-modal'       : 'onTimeModalShown',
       'hidden #time-modal'      : 'onTimeModalHidden',
       'shown #resume-modal'     : 'onResumeModalShown',
-      'click .resume-modal-yes' : 'onResumeModalYesClicked',
-      'click .resume-modal-no'  : 'onResumeModalNoClicked',
+      'click #resume-modal-yes' : 'onResumeModalYesClicked',
+      'click #resume-modal-no'  : 'onResumeModalNoClicked',
       'click .expand-bar'       : 'onTimelogsClicked'
     },
 
@@ -355,7 +355,7 @@
         }
       }.bind(this), 1000);
 
-      $modal.find('.time-modal-save').focus();
+      $modal.find('#time-modal-save').focus();
     },
 
     onTimeModalHidden: function() {
@@ -374,7 +374,7 @@
     },
 
     onResumeModalShown: function() {
-      this.$('#resume-modal').find('.resume-modal-yes').focus();
+      this.$('#resume-modal').find('#resume-modal-yes').focus();
     },
 
     onResumeModalYesClicked: function() {
