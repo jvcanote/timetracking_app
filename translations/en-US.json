@@ -76,6 +76,11 @@
       "body": "This is the amount of time you spent on this ticket. Edit the time, if you need to, then click \"Submit time\".",
       "close": "Cancel",
       "save": "Submit time"
+    },
+    "resume_modal": {
+      "body": "Would you like to resume the timer?",
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "errors": {

@@ -46,3 +46,17 @@
     <button class="btn btn-primary modal-save">{{t "views.modal.save"}}</button>
   </div>
 </div>
+
+<div class="modal hide fade" id="resume-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+    <h3>{{setting "name"}}</h3>
+  </div>
+  <div class="modal-body">
+    <p>{{t "views.resume_modal.body"}}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" aria-hidden="true" data-dismiss="modal">{{t "views.resume_modal.no"}}</button>
+    <button class="btn btn-primary resume-modal-yes">{{t "views.resume_modal.yes"}}</button>
+  </div>
+</div>
