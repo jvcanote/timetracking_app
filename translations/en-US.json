@@ -31,6 +31,10 @@
         "label": "Reset current time",
         "helpText": "Agents can reset the current time spent on a ticket."
       },
+      "resume_on_changes": {
+        "label": "Resume on changes",
+        "helpText": "The timer resumes automatically when the agent makes changes to any fields."
+      },
       "time_submission": {
         "label": "Edit time submission",
         "helpText": "Agents can review and edit their time before submitting the ticket."

@@ -52,6 +52,11 @@
       "default": true
     },
     {
+      "name": "resume_on_changes",
+      "type": "checkbox",
+      "default": false
+    },
+    {
       "name": "time_submission",
       "type": "checkbox",
       "default": true

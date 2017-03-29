@@ -111,6 +111,9 @@
 
     onAnyTicketFieldChanged: function() {
       _.defer(this.hideFields.bind(this));
+      if (this.setting('resume_on_changes') && this.manuallyPaused) {
+        this.resume();
+      }
     },
 
     maxValueExceededDebugLogs: function(fname, timeAttempt) {
