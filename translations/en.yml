@@ -62,6 +62,26 @@ parts:
       title: "this is the explanation helptext of the auto pause checkbox for the admin who is installing the app"
       value: "The timer pauses when the agent navigates away from the ticket and resumes when the agent is back on the ticket."
   - translation:
+      key: "txt.apps.time_tracking.app.parameters.resume_on_changes.label"
+      title: "This is an app setting to display a modal if fields are changed while the timer is paused"
+      value: "Resume on changes"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.resume_on_changes.helpText"
+      title: "This is the helptext displayed to admins for the app setting to display a modal if fields are changed while the timer is paused",
+      value: "When changes are made to any fields, a modal will ask if the timer should be resumed."
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.resume_modal.body": {
+      title: "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused."
+      value: "Would you like to resume the timer?"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.resume_modal.no"
+      title: "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
+      value: "No"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.resume_modal.yes"
+      title: "This is a button to agree to resume the timer."
+      value: "Yes"
+  - translation:
       key: "txt.apps.time_tracking.app.parameters.reset.label"
       title: "This is a checkbox setting label as well. What this does is let the agent reset the current time he has spent on a specific ticket using a reset button."
       value: "Reset current time"

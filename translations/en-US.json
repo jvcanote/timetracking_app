@@ -31,10 +31,6 @@
         "label": "Reset current time",
         "helpText": "Agents can reset the current time spent on a ticket."
       },
-      "resume_on_changes": {
-        "label": "Resume on changes",
-        "helpText": "When changes are made to any fields, a modal will ask if the timer should be resumed."
-      },
       "time_submission": {
         "label": "Edit time submission",
         "helpText": "Agents can review and edit their time before submitting the ticket."
@@ -76,11 +72,6 @@
       "body": "This is the amount of time you spent on this ticket. Edit the time, if you need to, then click \"Submit time\".",
       "close": "Cancel",
       "save": "Submit time"
-    },
-    "resume_modal": {
-      "body": "Would you like to resume the timer?",
-      "yes": "Yes",
-      "no": "No"
     }
   },
   "errors": {
