@@ -33,7 +33,7 @@
       },
       "resume_on_changes": {
         "label": "Resume on changes",
-        "helpText": "The timer resumes automatically when the agent makes changes to any fields."
+        "helpText": "When changes are made to any fields, a modal will ask if the timer should be resumed."
       },
       "time_submission": {
         "label": "Edit time submission",
