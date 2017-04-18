@@ -54,12 +54,12 @@
       'click .pause'            : 'onPauseClicked',
       'click .play'             : 'onPlayClicked',
       'click .reset'            : 'onResetClicked',
-      'click #time-modal-save'  : 'onTimeModalSaveClicked',
-      'shown #time-modal'       : 'onTimeModalShown',
-      'hidden #time-modal'      : 'onTimeModalHidden',
-      'shown #resume-modal'     : 'onResumeModalShown',
-      'click #resume-modal-yes' : 'onResumeModalYesClicked',
-      'click #resume-modal-no'  : 'onResumeModalNoClicked',
+      'click .time-modal-save'  : 'onTimeModalSaveClicked',
+      'shown .time-modal'       : 'onTimeModalShown',
+      'hidden .time-modal'      : 'onTimeModalHidden',
+      'shown .resume-modal'     : 'onResumeModalShown',
+      'click .resume-modal-yes' : 'onResumeModalYesClicked',
+      'click .resume-modal-no'  : 'onResumeModalNoClicked',
       'click .expand-bar'       : 'onTimelogsClicked'
     },
 
@@ -115,7 +115,7 @@
     onAnyTicketFieldChanged: function() {
       _.defer(this.hideFields.bind(this));
       if (this.setting('resume_on_changes') && this.manuallyPaused && !this.refusedResume) {
-        this.$('#resume-modal').modal('show');
+        this.$('.resume-modal').modal('show');
       }
     },
 
@@ -329,7 +329,7 @@
           this.saveHookPromiseDone();
         }
 
-        this.$('#time-modal').modal('hide');
+        this.$('.time-modal').modal('hide');
 
       } catch (e) {
         if (e.message == 'bad_time_format') {
@@ -343,7 +343,7 @@
     onTimeModalShown: function() {
       var timeout = 15,
           $timeout = this.$('span.modal-timer'),
-          $modal = this.$('#time-modal');
+          $modal = this.$('.time-modal');
 
       this.modalTimeoutID = setInterval(function() {
         timeout -= 1;
@@ -355,7 +355,7 @@
         }
       }.bind(this), 1000);
 
-      $modal.find('#time-modal-save').focus();
+      $modal.find('.time-modal-save').focus();
     },
 
     onTimeModalHidden: function() {
@@ -374,18 +374,18 @@
     },
 
     onResumeModalShown: function() {
-      this.$('#resume-modal').find('#resume-modal-yes').focus();
+      this.$('.resume-modal').find('.resume-modal-yes').focus();
     },
 
     onResumeModalYesClicked: function() {
       this.$('.play').click();
 
-      this.$('#resume-modal').modal('hide');
+      this.$('.resume-modal').modal('hide');
     },
 
     onResumeModalNoClicked: function() {
       this.refusedResume = true;
-      this.$('#resume-modal').modal('hide');
+      this.$('.resume-modal').modal('hide');
     },
 
     /*
@@ -538,7 +538,7 @@
       } else {
         this.$('.modal-time').val(TimeHelpers.secondsToTimeString(this.elapsedTime()));
       }
-      this.$('#time-modal').modal('show');
+      this.$('.time-modal').modal('show');
     },
 
     resetElapsedTime: function() {
