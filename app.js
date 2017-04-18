@@ -378,11 +378,7 @@
     },
 
     onResumeModalYesClicked: function() {
-      this.$('.play i').addClass('active');
-      this.$('.pause i').removeClass('active');
-
-      this.manuallyPaused = false;
-      this.resume();
+      this.$('.play').click();
 
       this.$('#resume-modal').modal('hide');
     },
