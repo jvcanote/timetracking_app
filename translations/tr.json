@@ -64,7 +64,7 @@
     },
     "timelogs": {
       "title": "Zaman günlüğü",
-      "csv_export": "CSV olarak dışarı Aktar",
+      "csv_export": "CSV olarak dışa aktar",
       "error": "Zaman günlüğü yükleyemiyoruz.",
       "empty": "Görüntülenecek zaman günlüğü yok"
     },
