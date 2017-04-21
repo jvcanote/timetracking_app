@@ -63,22 +63,22 @@ parts:
       value: "The timer pauses when the agent navigates away from the ticket and resumes when the agent is back on the ticket."
   - translation:
       key: "txt.apps.time_tracking.app.parameters.resume_on_changes.label"
-      title: "This is an app setting to display a modal if fields are changed while the timer is paused"
+      title: "This is a Time Tracking app setting to display a modal if ticket fields are changed while the timer is paused (resume timer that was paused if there are changes applied to the ticket). See also txt.apps.time_tracking.app.parameters.resume_on_changes.helpText"
       screenshot: https://zendesk.app.box.com/files/0/f/12025277114/1/f_160639727838
       value: "Resume on changes"
   - translation:
       key: "txt.apps.time_tracking.app.parameters.resume_on_changes.helpText"
-      title: "This is the helptext displayed to admins for the app setting to display a modal if fields are changed while the timer is paused",
+      title: "This is the helptext displayed to admins for the app setting to display a modal if fields are changed while the timer is paused"
       screenshot: https://zendesk.app.box.com/files/0/f/12025277114/1/f_160639727838
       value: "When changes are made to any fields, a modal will ask if the timer should be resumed."
   - translation:
-      key: "txt.apps.time_tracking.app.parameters.resume_modal.body": {
+      key: "txt.apps.time_tracking.app.parameters.resume_modal.body"
       title: "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused."
       value: "Would you like to resume the timer?"
       screenshot: https://zendesk.app.box.com/files/0/f/12025277114/1/f_160639713514
   - translation:
       key: "txt.apps.time_tracking.app.parameters.resume_modal.no"
-      title: "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
+      title: "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again."
       value: "No"
       screenshot: https://zendesk.app.box.com/files/0/f/12025277114/1/f_160639713514
   - translation:
