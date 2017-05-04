@@ -193,9 +193,11 @@
 
     onGetAuditsDone: function(response) {
       /**
-       * If the follow up was created by the admin, the follow up audit time
+       * If the follow up ticket was created by an agent, the follow up audit time
        * is good (because timetracking resets it).
-       * However, if it was created by the end user (or system), we have to discard it.
+       * However, if the follow up ticket was created by the end user (or system),
+       * we have to discard the first audit, because the values get copied from the
+       * previous ticket.
        */
 
       var audits = response.audits;
@@ -220,11 +222,9 @@
       // do any of the audits set totalTime?
       var hasTotalTimeSet = _.some(audits, function(audit) {
             // find the totalTimeEvent
-            var totalTimeEvent = _.find(audit.events, function(event) {
-                  return event.field_name == totalTimeFieldId;
-                });
-
-            return !!totalTimeEvent;
+            return _.some(audit.events, function(event) {
+              return event.field_name == totalTimeFieldId;
+            });
           });
 
       if (!hasTotalTimeSet) {
@@ -246,14 +246,16 @@
           if (auditEvent) {
             if (!memo.length) { auditEvent.previous_value = 0; }
 
-            var timeDiff = auditEvent.value - (auditEvent.previous_value || 0);
+            var timeDiff = auditEvent.previous_value ? auditEvent.value - auditEvent.previous_value : auditEvent.value;
+
+            var status = statusEvent && statusEvent.value;
 
             memo.push({
               time: TimeHelpers.secondsToTimeString(parseInt(timeDiff, 10)),
               date: new Date(audit.created_at).toLocaleString(),
-              status: statusEvent && statusEvent.value,
+              status: status,
               // Guard around i18n status because some old tickets don't have this
-              localized_status: statusEvent ? this.I18n.t(helpers.fmt('statuses.%@', statusEvent.value)) : "",
+              localized_status: status ? this.I18n.t(helpers.fmt('statuses.%@', status)) : '',
               user: _.find(response.users, function(user) {
                 return user.id === audit.author_id;
               })
