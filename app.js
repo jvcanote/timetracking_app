@@ -200,9 +200,7 @@
        * previous ticket.
        */
 
-      var audits = response.audits;
-
-      var audits = _.filter(audits, function(audit) {
+      var audits = _.filter(response.audits, function(audit) {
         var isFollowUp = audit.via && audit.via.source && audit.via.source.rel === 'follow_up';
 
         // if not a follow up, it's good.
@@ -213,7 +211,7 @@
 
         var author = _.find(response.users, function(user) {
           return user.id === audit.author_id;
-        })
+        });
 
         // we can trust if it comes from admin or agent.
         return (author.role === 'admin' || author.role === 'agent');
