@@ -67,6 +67,11 @@
       "default": false
     },
     {
+      "name": "keep_time_follow_up",
+      "type": "checkbox",
+      "default": false
+    },
+    {
       "name": "debug_prevent_huge_times",
       "type": "checkbox",
       "default": false

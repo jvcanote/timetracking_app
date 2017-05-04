@@ -204,7 +204,7 @@
         }
       });
 
-      if (followUpAudits.length) {
+      if (followUpAudits.length && !this.setting('keep_time_follow_up')) {
         // Because of a change with how events are carried over to follow-up
         // tickets (zendesk/zendesk#26389) we want to only consider new audit
         // events

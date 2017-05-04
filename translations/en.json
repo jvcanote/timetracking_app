@@ -71,12 +71,26 @@
       },
       "resume_on_changes": {
         "label": {
-          "title": "This is an app setting to display a modal if fields are changed while the timer is paused",
+          "title": "This is a Time Tracking app setting to display a modal if ticket fields are changed while the timer is paused (resume timer that was paused if there are changes applied to the ticket). See also txt.apps.time_tracking.app.parameters.resume_on_changes.helpText",
           "value": "Resume on changes"
         },
         "helpText": {
           "title": "This is the helptext displayed to admins for the app setting to display a modal if fields are changed while the timer is paused",
           "value": "When changes are made to any fields, a modal will ask if the timer should be resumed."
+        }
+      },
+      "resume_modal": {
+        "body": {
+          "title": "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused.",
+          "value": "Would you like to resume the timer?"
+        },
+        "no": {
+          "title": "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
+          "value": "No"
+        },
+        "yes": {
+          "title": "This is a button to agree to resume the timer.",
+          "value": "Yes"
         }
       },
       "reset": {
@@ -109,14 +123,24 @@
           "value": "Prompt agents to enter a value in minutes before submitting the ticket"
         }
       },
-      "debug_prevent_huge_times": {
+      "keep_time_follow_up": {
         "label": {
-          "title": "This is a checkbox setting lable. If the admin checks this box, the agents will not be able to submit 'Time Spent' times exceeding 1209600 seconds, or two weeks.",
-          "value": "Debug: Block large time spent submissions"
+          "title": "This is a checkbox setting label. If the admin checks this box, the total time field will not be reset for follow up tickets",
+          "value": "Keep total time for follow up tickets"
         },
         "helpText": {
-          "title": "This is the explanation helptext of the debug (large time spent) checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png",
-          "value": "Blocks submission of a ticket if an agent is trying to submit a ticket with a Time Spent value (in seconds) greater than 1209600s (two weeks)."
+          "title": "This is the explanation helptext of the keep total time checkbox for the admin who is installing the app",
+          "value": "When a follow up ticket is created we can either reset the total ticket time to zero, or copy over the total ticket time from the previous ticket."
+        }
+      },
+      "keep_time_follow_up": {
+        "label": {
+          "title": "This is a checkbox setting label. If the admin checks this box, the total time field will not be reset for follow up tickets",
+          "value": "Keep total time for follow up tickets"
+        },
+        "helpText": {
+          "title": "This is the explanation helptext of the keep total time checkbox for the admin who is installing the app",
+          "value": "When a follow up ticket is created we can either reset the total ticket time to zero, or copy over the total ticket time from the previous ticket."
         }
       }
     },
@@ -215,20 +239,6 @@
       "save": {
         "title": "This is the validation button for submitting the time from the modal",
         "value": "Submit time"
-      }
-    },
-    "resume_modal": {
-      "body": {
-        "title": "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused.",
-        "value": "Would you like to resume the timer?"
-      },
-      "no": {
-        "title": "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
-        "value": "No"
-      },
-      "yes": {
-        "title": "This is a button to agree to resume the timer.",
-        "value": "Yes"
       }
     }
   },

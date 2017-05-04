@@ -111,6 +111,22 @@ parts:
       title: "This is the explanation helptext of the simple submission checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png"
       value: "Prompt agents to enter a value in minutes before submitting the ticket"
   - translation:
+      key: "txt.apps.time_tracking.app.parameters.keep_time_follow_up.label"
+      title: "This is a checkbox setting label. If the admin checks this box, the total time field will not be reset for follow up tickets"
+      value: "Keep total time for follow up tickets"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.keep_time_follow_up.helpText"
+      title: "This is the explanation helptext of the keep total time checkbox for the admin who is installing the app"
+      value: "When a follow up ticket is created we can either reset the total ticket time to zero, or copy over the total ticket time from the previous ticket."
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.keep_time_follow_up.label"
+      title: "This is a checkbox setting label. If the admin checks this box, the total time field will not be reset for follow up tickets"
+      value: "Keep total time for follow up tickets"
+  - translation:
+      key: "txt.apps.time_tracking.app.parameters.keep_time_follow_up.helpText"
+      title: "This is the explanation helptext of the keep total time checkbox for the admin who is installing the app"
+      value: "When a follow up ticket is created we can either reset the total ticket time to zero, or copy over the total ticket time from the previous ticket."
+  - translation:
       key: "txt.apps.time_tracking.statuses.new"
       title: "first letter of status new"
       value: "n"
