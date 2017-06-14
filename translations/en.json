@@ -1,12 +1,20 @@
 {
   "app": {
-    "description": {
-      "title": "app description",
+    "name": {
+      "title": "Name for App: Time Tracking",
+      "value": "Time Tracking"
+    },
+    "short_description": {
+      "title": "Description for App: Time Tracking",
       "value": "Helps you track time spent on tickets."
     },
-    "name": {
-      "title": "app name",
-      "value": "Time Tracking"
+    "long_description": {
+      "title": "Long Description for App: Time Tracking",
+      "value": "* Automatically track the time spent on each of your Zendesk Support tickets\n* Customize the app to include the exact functionality that your team needs\n* Leverage Insights to create detailed reports with your time tracking data\n\nThe Time Tracking app makes managing your team’s performance and overall support operations easier. Easily identify which customers send in the most complicated tickets, or which issue types take the longest for your team to resolve. Dig down into an agent’s tickets to discover what’s taking up their time and which issues they’re experts on.\n\n### Know exactly how and where your team is spending their time\n\nKeep a running log of which support agents have worked on a ticket and how long each interaction lasted. Automatically log the total time spent the second your agent updates a ticket or let them manually enter their time.\n\n### Easy to setup, customize, and use\n\nThe Time Tracking App doesn’t require any third party set up or login. Simply customize how the Time Tracking App displays and works for your support team, for a seamless fit into your team’s current workflow.\n\n### Report on your time logs and take action\n\nStart reporting right away with easily built custom time tracking reports through Insights. Know exactly what’s draining your support team’s resources and find the best areas for optimization and improvement.\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
+    },
+    "installation_instructions": {
+      "title": "Installation Instructions for App: Time Tracking",
+      "value": "### Getting started with the Time Tracking app:\n\n1. Sign in to your Zendesk Support account, then click the Admin icon in the sidebar.\n2. Select Apps > Marketplace, then find the Time Tracking app and click the tile.\n3. On the Time Tracking app page, click Install app in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.\n4. Enter a name for the app, select the configurations you want, then click Install\n5. *Enterprise Plans only* If you are using Ticket Forms, go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
     },
     "parameters": {
       "time_field_id": {
@@ -71,12 +79,26 @@
       },
       "resume_on_changes": {
         "label": {
-          "title": "This is an app setting to display a modal if fields are changed while the timer is paused",
+          "title": "This is a Time Tracking app setting to display a modal if ticket fields are changed while the timer is paused (resume timer that was paused if there are changes applied to the ticket). See also txt.apps.time_tracking.app.parameters.resume_on_changes.helpText",
           "value": "Resume on changes"
         },
         "helpText": {
           "title": "This is the helptext displayed to admins for the app setting to display a modal if fields are changed while the timer is paused",
           "value": "When changes are made to any fields, a modal will ask if the timer should be resumed."
+        }
+      },
+      "resume_modal": {
+        "body": {
+          "title": "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused.",
+          "value": "Would you like to resume the timer?"
+        },
+        "no": {
+          "title": "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
+          "value": "No"
+        },
+        "yes": {
+          "title": "This is a button to agree to resume the timer.",
+          "value": "Yes"
         }
       },
       "reset": {
@@ -107,16 +129,6 @@
         "helpText": {
           "title": "This is the explanation helptext of the simple submission checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png",
           "value": "Prompt agents to enter a value in minutes before submitting the ticket"
-        }
-      },
-      "debug_prevent_huge_times": {
-        "label": {
-          "title": "This is a checkbox setting lable. If the admin checks this box, the agents will not be able to submit 'Time Spent' times exceeding 1209600 seconds, or two weeks.",
-          "value": "Debug: Block large time spent submissions"
-        },
-        "helpText": {
-          "title": "This is the explanation helptext of the debug (large time spent) checkbox for the admin who is installing the app: https://www.dropbox.com/s/pw13z83j6qoqktv/Screenshot%202014-08-01%2011.29.46.png",
-          "value": "Blocks submission of a ticket if an agent is trying to submit a ticket with a Time Spent value (in seconds) greater than 1209600s (two weeks)."
         }
       }
     },
@@ -215,20 +227,6 @@
       "save": {
         "title": "This is the validation button for submitting the time from the modal",
         "value": "Submit time"
-      }
-    },
-    "resume_modal": {
-      "body": {
-        "title": "this is the body of the resume timer modal, this modal asks the agent if they would like to resume the timer if fields change while the timer is paused.",
-        "value": "Would you like to resume the timer?"
-      },
-      "no": {
-        "title": "This is a button on the modal to not resume the timer. Clicking it will dismiss the modal until the timer is manually paused again.",
-        "value": "No"
-      },
-      "yes": {
-        "title": "This is a button to agree to resume the timer.",
-        "value": "Yes"
       }
     }
   },
