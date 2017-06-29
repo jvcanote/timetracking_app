@@ -59,7 +59,7 @@ By enabling this app, You agree to the [Built by Zendesk Terms of Use](https://w
 
 4. Enter a name for the app, select the configurations you want, then click Install
 
-5. *Enterprise Plans only* If you are using Ticket Forms, go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
+5. If you are using Ticket Forms (part of the Productivity Pack add-on), go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
   - translation:
       key: "txt.apps.time_tracking.app.parameters.time_field_id.label"
       title: "This is the title of a setting of the app, this setting is hidden and not shown to users but in this setting we will put the ID of a field that will store the time values"

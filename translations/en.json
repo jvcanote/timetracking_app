@@ -14,7 +14,7 @@
     },
     "installation_instructions": {
       "title": "Installation Instructions for App: Time Tracking",
-      "value": "### Getting started with the Time Tracking app:\n\n1. Sign in to your Zendesk Support account, then click the Admin icon in the sidebar.\n2. Select Apps > Marketplace, then find the Time Tracking app and click the tile.\n3. On the Time Tracking app page, click Install app in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.\n4. Enter a name for the app, select the configurations you want, then click Install\n5. *Enterprise Plans only* If you are using Ticket Forms, go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
+      "value": "### Getting started with the Time Tracking app:\n\n1. Sign in to your Zendesk Support account, then click the Admin icon in the sidebar.\n2. Select Apps > Marketplace, then find the Time Tracking app and click the tile.\n3. On the Time Tracking app page, click Install app in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.\n4. Enter a name for the app, select the configurations you want, then click Install\n5. If you are using Ticket Forms (part of the Productivity Pack add-on), go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
     },
     "parameters": {
       "time_field_id": {
