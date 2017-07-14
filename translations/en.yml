@@ -35,7 +35,7 @@ Keep a running log of which support agents have worked on a ticket and how long 
 ### Easy to setup, customize, and use
 
 
-The Time Tracking App doesn’t require any third party set up or login. Simply customize how the Time Tracking App displays and works for your support team, for a seamless fit into your team’s current workflow.
+The Time Tracking App doesn’t require any third party setup or login. Simply customize how the Time Tracking app displays and works for your support team, for a seamless fit into your team’s current workflow.
 
 
 ### Report on your time logs and take action
@@ -53,13 +53,13 @@ By enabling this app, You agree to the [Built by Zendesk Terms of Use](https://w
 
 1. Sign in to your Zendesk Support account, then click the Admin icon in the sidebar.
 
-2. Select Apps > Marketplace, then find the Time Tracking app and click the tile.
+2. Select **Apps > Marketplace**, then find the Time Tracking app and click the tile.
 
-3. On the Time Tracking app page, click Install app in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.
+3. On the Time Tracking app page, click **Install app** in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.
 
-4. Enter a name for the app, select the configurations you want, then click Install
+4. Enter a name for the app, select the configurations you want, then click **Install**.
 
-5. If you are using Ticket Forms (part of the Productivity Pack add-on), go to Admin > Manage > Ticket Forms and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
+5. If you are using Ticket Forms (part of the Productivity Pack add-on), go to **Admin > Manage > Ticket Forms** and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms."
   - translation:
       key: "txt.apps.time_tracking.app.parameters.time_field_id.label"
       title: "This is the title of a setting of the app, this setting is hidden and not shown to users but in this setting we will put the ID of a field that will store the time values"
