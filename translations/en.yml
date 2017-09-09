@@ -47,7 +47,7 @@ Start reporting right away with easily built custom time tracking reports throug
 By enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
   - translation:
       key: "txt.apps.time_tracking.app.installation_instructions"
-      title: "Installation Instructions for App: Time Tracking"
+      title: "Installation Instructions for App: Time Tracking. Please keep ‘Total time spent’ & ‘Time spent since last update’ in English."
       value: "### Getting started with the Time Tracking app:
 
 
