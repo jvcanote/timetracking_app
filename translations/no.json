@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Holder rede på hvor my tid som brukes på sakene.",
     "name": "Tidssporing",
+    "short_description": "Holder rede på hvor mye tid som brukes på sakene.",
+    "long_description": "* Hold automatisk rede på tiden som ble brukt på hver Zendesk Support-sak\n* Tilpass appen slik at den omfatter nøyaktig den funksjonaliteten som teamet trenger\n* Benytt deg av Insights til å opprette detaljerte rapporter med tidssporingsdataene \n\nTidssporing-appen gjør det enklere å styre teamets fremdrift og generell kundeservicefunksjon. Du kan lett finne de kundene som sender inn de mest kompliserte sakene, eller hvilken problemtype det tar lengst tid for teamet å løse. Utforsk sakene til kundekonsulentene for å finne ut hva som tar mest tid og hvilke problemer de er eksperter på.\n\n### Vær informert om nøyaktig hvor og hvordan teamet benytter tiden\n\nFør en løpende logg over kundekonsulenter som har jobbet med en sak, og hvor lang tid hver interaksjon varte. Registrer total tid automatisk idet kundekonsulenten oppdaterer en sak , eller la dem legge inn tiden manuelt.\n\n### Enkel å konfigurere, tilpasse og bruke\n\nAppen Tidssporing trenger ikke noen konfigurering eller pålogging av tredjepart. Du kan simpelthen tilpasse hvordan appen Tidssporing vises og fungerer for kundeserviceteamet, slik at den sømløst passer inn i teamets aktuelle arbeidsflyt.\n\n### Lag rapporter basert på tidsloggene, og sett i verk tiltak\n\nKom i gang med rapporter med én gang med spesialtilpassede tidsloggrapporter som er lette å lage med Insights. Hold rede på hva det er som tapper kundeserviceteamets ressurser, og finn de beste mulighetene for optimalisering og forbedring.\n\nVed å aktivere denne appen godtar du [Laget av Zendesk-brukervilkårene](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Innføring i appen Tidssporing:\n\n1. Logg deg inn på Zendesk Support-kontoen og klikk på Admin-ikonet i sidefeltet.\n2. Velg **Apper > Marketplace**, og finn appen Tidssporing og klikk på flisen.\n3. Klikk **Installer app** oppe til høyre på siden for Tidssporing-appen. Denne appen er kun tilgjengelig for kunder med Plus- eller Enterprise-abonnement. \n4. Legg inn et navn for appen og konfigurer innstillingene, og klikk deretter **Installer**.\n5. Hvis du bruker Saksskjema (som er en del av tillegget produktivitetspakke), går du til **Admin > Administrer > Saksskjema og legger til saksfeltet «Total time spent» (anvendt tid totalt) og «Time spent since last update» (anvendt tid siden siste oppdatering) til hvert enkelt saksskjema.",
     "parameters": {
       "time_field_id": {
         "label": "Tidsfelt-ID",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Auto-stans",
         "helpText": "Tidtakeren tar pause når kundekonsulenten går bort fra saken og starter igjen når kundekonsulenten kommer tilbake til saken."
+      },
+      "resume_on_changes": {
+        "label": "Start igjen ved endringer",
+        "helpText": "Når det foretas endringer i felt, vil en sperredialog spørre om tidtakeren skal startes igjen."
+      },
+      "resume_modal": {
+        "body": "Vil du starte tidtakeren igjen?",
+        "no": "Nei",
+        "yes": "Ja"
       },
       "reset": {
         "label": "Tilbakestill gjeldende tid",

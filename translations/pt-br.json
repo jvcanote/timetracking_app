@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Ajuda a monitorar o tempo gasto em tickets.",
     "name": "Controle de horas",
+    "short_description": "Ajuda a monitorar o tempo gasto em tickets.",
+    "long_description": "* Acompanhe automaticamente o tempo gasto em cada ticket do Zendesk Support\n* Personalize o aplicativo para incluir o recurso exato que sua equipe precisa\n* Aproveite o Insights para criar relatórios detalhados com dados de controle de horas\n\nO aplicativo Controle de horas facilita a gestão do desempenho da sua equipe e as operações de suporte em geral. Identifique facilmente quais clientes enviam os tickets mais complicados ou quais tipos de problema exigem mais tempo da sua equipe para a resolução. Se aprofunde nos tickets de um agente para descobrir o que está consumindo o tempo dele e os tipos de problemas nos quais ele é especialista.\n\n### Saiba exatamente como e onde sua equipe está gastando o tempo dela\n\nMantenha um registro corrente de quais agentes de suporte trabalharam em um ticket e da duração de cada interação. Registre automaticamente o tempo total gasto desde a primeira atualização do ticket por seu agente ou permita que ele insira o horário.\n\n### Fácil de configurar, personalizar e usar\n\nO aplicativo Controle de horas não requer configuração ou login de terceiros. Personalize como o aplicativo Controle de horas será exibido e funcionará para sua equipe de suporte, de modo que ele se encaixe otimizadamente no fluxo de trabalho atual da sua equipe.\n\n### Crie relatórios dos registros de tempo e aja\n\nComece suas análises agora com relatórios personalizados de controle de horas que podem ser facilmente criados com o Insights. Saiba exatamente o que está sugando os recursos da sua equipe de suporte e encontre as áreas que precisam de otimização e melhoria.\n\nAtivando esse aplicativo, Você concorda com os [Termos de Uso do Built by Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Introdução ao aplicativo Controle de horas:\n\n1. Entre na sua conta do Zendesk Support e, em seguida, clique no ícone Admin. na barra lateral.\n2. Selecione **Aplicativos > Mercado**, encontre o aplicativo Controle de horas e clique no ícone.\n3. Na página do aplicativo Controle de horas, clique em **Instalar aplicativo** no canto superior direito. O aplicativo está disponível apenas para clientes nos planos Plus e Enterprise.\n4. Insira um nome para o aplicativo, selecione as configurações desejadas e clique em **Instalar**.\n5. Se você estiver usando os Formulários de ticket (parte do complemento Pacote de produtividade), visite **Admin. > Gerenciar > Formulários de ticket** e adicione os campos de ticket “Total time spent” e “Time spent since last update” a cada formulário de ticket.",
     "parameters": {
       "time_field_id": {
         "label": "ID do campo de tempo",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Pausa automática",
         "helpText": "O cronômetro para quando um agente sai do ticket e retoma sua contagem quando ele volta ao ticket."
+      },
+      "resume_on_changes": {
+        "label": "Continuar em caso de alterações",
+        "helpText": "Quando forem feitas alterações em qualquer campo, uma caixa de diálogo modal perguntará se o cronômetro deve ser reiniciado."
+      },
+      "resume_modal": {
+        "body": "Gostaria de reiniciar o cronômetro?",
+        "no": "Não",
+        "yes": "Sim"
       },
       "reset": {
         "label": "Redefinir tempo atual",

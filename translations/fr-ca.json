@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Vous aide à suivre le temps consacré aux billets.",
     "name": "Suivi du temps",
+    "short_description": "Vous aide à suivre le temps consacré aux tickets.",
+    "long_description": "Suivez automatiquement le temps consacré à chacun de vos tickets Zendesk Support\n* Personnalisez l’application pour inclure les fonctionnalités exactes dont votre équipe a besoin\n* Utilisez Insights pour créer des rapports détaillés avec vos données de suivi du temps\n\nL’application Suivi du temps facilite la gestion des performances de votre équipe et de l’ensemble des opérations d’assistance. Identifiez facilement les clients qui envoient les tickets les plus compliqués ou les problèmes les plus longs à résoudre pour votre équipe. Regardez de près les tickets d’un agent pour découvrir ce qui lui prend du temps et de quels problèmes il est expert.\n\n### Découvrez exactement où et à quoi votre équipe passe son temps\n\nConservez un journal des agents d’assistance qui ont travaillé sur un ticket et de la durée de chaque interaction. Enregistrez automatiquement le temps total passé dès que vos agents mettent un ticket à jour ou permettez-leur de saisir leur temps manuellement.\n\n### Facile à configurer, personnaliser et utiliser\n\nL’application Suivi du temps ne nécessite pas de configuration ni de connexion tierce. Il vous suffit de personnaliser l’affichage et le fonctionnement de l’application Suivi du temps pour qu’elle soit parfaitement adaptée au workflow actuel de votre équipe.\n\n### Créez des rapports à partir de vos journaux horaires et prenez les mesures nécessaires\n\nCommencez à créer des rapports immédiatement grâce aux rapports de suivi du temps personnalisés faciles à générer par le biais d’Insights. Découvrez avec précision ce qui draine les ressources de votre équipe d’assistance et identifiez les points à optimiser et améliorer.\n\nEn activant cette application, vous acceptez les [conditions d’utilisation Créées par Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Commencer à utiliser l’application Suivi du temps :\n\n1. Connectez-vous à votre compte Zendesk Support, puis cliquez sur l’icône Admin dans la barre latérale.\n2. Sélectionnez Applications > Marketplace, puis recherchez l’application Suivi du temps et cliquez sur la mosaïque.\n3. À la page de l’application Suivi du temps, cliquez sur Installer l’application en haut à droite. Cette application est disponible pour les clients disposant d’une édition Plus ou Enterprise uniquement.\n4. Saisissez un nom pour l’application et configurez les paramètres, puis cliquez sur **Installer**.\n5. Si vous utilisez les formulaires de ticket (qui font partie du module supplémentaire Pack de productivité), allez à **Admin > Gérer > Formulaires de ticket** et ajoutez les champs de ticket « Total time spent » (Temps total passé) et « Time spent since last update » (Temps passé depuis la dernière mise à jour) à chacun de vos formulaires de tickets.",
     "parameters": {
       "time_field_id": {
         "label": "ID du champ de temps",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Pause automatique",
         "helpText": "Le minuteur s’arrête quand l’agent quitte le billet et reprend quand l’agent revient au billet."
+      },
+      "resume_on_changes": {
+        "label": "Relancer en cas de modifications",
+        "helpText": "Quand des modifications sont apportées à un champ, vous serez invité à indiquer si vous voulez relancer le chronomètre."
+      },
+      "resume_modal": {
+        "body": "Voulez-vous relancer le chronomètre ?",
+        "no": "Non",
+        "yes": "Oui"
       },
       "reset": {
         "label": "Réinitialiser le temps actuel",

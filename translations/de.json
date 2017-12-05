@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Erfasst die mit der Bearbeitung von Tickets verbrachte Zeit.",
     "name": "Zeiterfassung",
+    "short_description": "Erfasst die mit der Bearbeitung von Tickets verbrachte Zeit.",
+    "long_description": "* Automatische Erfassung der Zeit für die Bearbeitung von Zendesk Support-Tickets\n* Anpassen der App, damit genau die von Ihrem Team benötigten Funktionen verfügbar sind\n* Erstellen von detaillierten Berichten in Insights, die auf Ihren Zeiterfassungsdaten basieren \n\nMit der App „Zeiterfassung“ lassen sich die Leistung Ihres Teams und die allgemeinen Supportabläufe wesentlich einfacher managen. Sie können gezielt erkennen, welche Kunden die kompliziertesten Tickets einreichen oder für welche Art von Problemen Ihr Team am meisten Zeit benötigt. Durch nähere Untersuchung der von einem Agenten bearbeiteten Tickets können Sie herausfinden, womit er seine Zeit verbringt und in welchen Bereichen er sich besonders gut auskennt.\n\n### Genau wissen, wie und womit Ihr Team seine Zeit verbringt\n\nLaufend aktualisiertes Protokoll der Supportagenten, die an einem Ticket gearbeitet haben, sowie der Dauer der einzelnen Interaktionen. Automatische Erfassung der insgesamt verbrachten Zeit, wenn ein Agent ein Ticket aktualisiert, oder manuelle Eingabe der Zeit durch den Agenten.\n\n### Einfache Einrichtung, Anpassung und Verwendung\n\nFür die App „Zeiterfassung“ ist weder eine Konfiguration durch Dritte noch eine Anmeldung erforderlich. Legen Sie einfach fest, wie die App „Zeiterfassung“ aussehen soll und welche Funktionen für Ihr Supportteam erforderlich sind. Auf diese Weise passt sich die App nahtlos in den Workflow Ihres Teams ein. \n\n### Erstellen von Zeiterfassungsberichten und Ergreifen von Maßnahmen\n\nIn Insights lassen sich schnell und einfach angepasste Zeiterfassungsberichte erstellen. So wissen Sie genau, wie die Ressourcen Ihres Supportteams genutzt werden, und können verbesserungsbedürftige Bereiche erkennen.\n\nDurch Aktivierung dieser App akzeptieren Sie die [Allgemeinen Geschäftsbedingungen für von Zendesk erstellte Apps](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Erste Schritte mit der App „Zeiterfassung“:\n\n1. Melden Sie sich bei Ihrem Zendesk Support-Konto an und klicken Sie in der Seitenleiste auf das Admin-Symbol.\n2. Klicken Sie auf **Apps > Marketplace**, machen Sie die App „Zeiterfassung“ ausfindig und klicken Sie auf die Kachel.\n3. Klicken Sie oben rechts auf der Seite für die App „Zeiterfassung“ auf **App installieren**. Diese App ist nur für Kunden mit Plus- oder Enterprise-Plan verfügbar.\n4. Geben Sie einen Namen für die App ein, wählen Sie die gewünschten Konfigurationen aus und klicken Sie dann auf **Installieren**.\n5. Wenn Sie Ticketformulare verwenden (Teil des Productivity-Pack-Add-ons) , gehen Sie zu **Admin“ > Verwalten > Ticketformulare** und fügen Sie die Ticketfelder „Total time spent“ (Verbrachte Zeit gesamt) und „Time spent since last update“ (Verbrachte Zeit seit letzter Aktualisierung) zu allen Ihren Ticketformularen hinzu.",
     "parameters": {
       "time_field_id": {
         "label": "ID des Zeitfelds",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Automatisch anhalten",
         "helpText": "Der Timer wird angehalten, wenn der Agent vom Ticket zu einem anderen Bereich wechselt, und läuft automatisch weiter, wenn der Agent zum Ticket zurückkehrt."
+      },
+      "resume_on_changes": {
+        "label": "Bei Änderungen weiterlaufen",
+        "helpText": "Wenn Feldänderungen vorgenommen werden, werden Sie in einem Modaldialogfeld gefragt, ob der Timer weiterlaufen soll."
+      },
+      "resume_modal": {
+        "body": "Soll der Timer weiterlaufen?",
+        "no": "Nein",
+        "yes": "Ja"
       },
       "reset": {
         "label": "Aktuelle Zeit zurücksetzen",

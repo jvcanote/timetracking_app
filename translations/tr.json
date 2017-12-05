@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Kayıtlar üzerinde harcanan zamanı txt.apps.time_tracking.app.name=kolayca takip edin.",
     "name": "Zaman İzleme",
+    "short_description": "Kayıtlarda harcanan zamanı izlemenize yardımcı olur.",
+    "long_description": "* Zendesk Support kayıtlarınızın her birinde harcanan zamanı otomatik olarak izleyin\n* Ekibinizin gereksinimlerine tam uyan bir işleyiş elde etmek için uygulamayı özelleştirin\n* Zaman izleme verilerinizle ayrıntılı raporlar oluşturmak için Insights'tan yararlanın\n\nZaman İzleme uygulaması ekibinizin performansının yönetimini ve genel destek operasyonlarını kolaylaştırır. En karmaşık kayıtları gönderen müşterileri ve ekibinizin çözmek için en çok zaman harcadığı sorun türlerini kolayca saptayın. Temsilcinin kayıtlarında ayrıntılı inceleme yaparak zamanlarını nelerin aldığını ve hangi sorunlarda usta olduğunu keşfedin.\n\n### Ekibinizin zamanlarını nasıl ve nerede harcadıklarını tam olarak öğrenin\n\nBir kayıt üzerinde hangi destek temsilcilerinin çalıştığının ve her bir etkileşimin ne kadar sürdüğünün kaydedildiği, işler bir günlük tutun. Temsilcinizin bir kaydı güncellerken harcadığı toplam zamanı otomatik olarak kaydedebilir veya zamanı kendilerinin girmesine izin verebilirsiniz.\n\n### Kurulumu, özelleştirmesi ve kullanımı kolaydır\n\nZaman İzleme uygulaması için herhangi bir üçüncü taraf kurulumu veya oturum açılması gerekmez. Ekibinizin mevcut iş akışına sorunsuz bir şekilde uyum sağlaması için Zaman İzleme uygulamasının görünümünü ve destek ekibiniz için işleyişini basit bir şekilde özelleştirin.\n\n### Zaman günlüklerinizden rapor çıkarın ve gerekli işlemleri uygulayın\n\nInsights aracılığıyla kolayca oluşturulan özel zaman izleme raporları sayesinde hemen raporlamaya başlayabilirsiniz. Destek ekibinizin kaynaklarını nelerin harcadığını tam olarak öğrenin ve optimizasyon/geliştirme için en iyi alanları saptayın.\n\nBu uygulamayı etkinleştirerek, [Built by Zendesk Kullanım Koşulları](https://www.zendesk.com/company/built-by-zendesk-agmt/)'nı kabul edersiniz.",
+    "installation_instructions": "### Zaman İzleme uygulamasını kullanmaya başlamak için:\n\n1. Zendesk Support hesabınızda oturum açın ve yan çubuktaki Yönetici simgesine tıklayın.\n2. **Uygulamalar > Market**'i seçin ve Zaman İzleme uygulamasını bulup kutucuğa tıklayın.\n3. Zaman İzleme uygulaması sayfasında sağ üst köşedeki **Uygulamayı kur** düğmesine tıklayın. Bu uygulamayı yalnızca Plus ve Enterprise planlarındaki müşteriler kullanabilir.\n4. Uygulama için bir ad girin, istediğiniz yapılandırmaları seçin ve **Kur**'a tıklayın.\n5. Kayıt Formları'nı kullanıyorsanız (Verimlilik Paketi eklentisinin bir parçasıdır), **Yönetici > Yönet > Kayıt Formları**'na gidin ve Kayıt Formlarınızın her birine \"Total time spent\" ve \"Time spent since last update\" kayıt alanlarını ekleyin.",
     "parameters": {
       "time_field_id": {
         "label": "Zaman Alanı Kimliği",
@@ -21,11 +23,20 @@
       },
       "manual_pause_resume": {
         "label": "Zamanlayıcı kontrollerini görüntüle",
-        "helpText": "Temsilciler zamanlayıcıyı manüel olarak duraklatabilir ya da sıfırlayabilir."
+        "helpText": "Temsilciler zamanlayıcıyı el ile duraklatabilir ya da sıfırlayabilir."
       },
       "auto_pause_resume": {
         "label": "Otomatik duraklat",
         "helpText": "Temsilci kayıttan farklı bir yere geçiş yaptığında zamanlayıcı durur, temsilci kayıta geri döndüğünde kaldığı yerden devam eder."
+      },
+      "resume_on_changes": {
+        "label": "Değişikliklerde devam ettir",
+        "helpText": "Alanlarda değişiklik yapıldığı zaman, açılan bir iletişim penceresinde, süreölçeri devam ettirmek isteyip istemediğiniz sorulacak."
+      },
+      "resume_modal": {
+        "body": "Süreölçeri devam ettirmek ister misiniz?",
+        "no": "Hayır",
+        "yes": "Evet"
       },
       "reset": {
         "label": "Güncel zamanı sıfırla",

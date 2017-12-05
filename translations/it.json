@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Aiuta a tenere traccia del tempo passato sui ticket.",
     "name": "Cronometro",
+    "short_description": "Aiuta a tenere traccia del tempo passato sui ticket.",
+    "long_description": "* Monitoraggio automatico del tempo dedicato a ciascuno dei ticket Zendesk Support\n* Personalizza l’app per includere funzionalità specifiche per le esigenze del tuo team.\n* Utilizza Insights per creare rapporti dettagliati contenenti i dati raccolti dall’app Cronometro.\n\nCon l’app Cronometro puoi gestire più facilmente le prestazioni del tuo team e le attività di assistenza in generale. Identifica facilmente quali clienti inviano i ticket più complessi o quali tipi di problemi richiedono più tempo per la risoluzione. Analizza in dettaglio i ticket di un agente specifico per identificare le attività che lo tengono più occupato e i problemi che risolve con maggiore competenza.\n\n### Identifica in dettaglio in che modo opera il tuo team e di quali attività si occupa.\n\nMantieni un elenco aggiornato degli agenti dell’assistenza che hanno lavorato a un ticket e della durata di ciascuna interazione. Registra automaticamente il tempo totale impiegato, non appena un agente aggiorna un ticket, oppure permetti agli agenti di inserire manualmente il tempo dedicato alle diverse attività.\n\n### Facile da impostare, da personalizzare e da usare\n\nL’app Cronometro non richiede l’impostazione o l’accesso tramite siti di terzi. Basta personalizzare il modo in cui viene visualizzata e configurata per garantire un’integrazione perfetta nel workflow corrente del tuo team dell’assistenza.\n\n### Crea rapporti sui registri temporali e prendi decisioni mirate.\n\nInizia immediatamente a redigere rapporti sull’impiego dei tempi di lavoro personalizzati e facili da creare, tramite Insights. Scopri esattamente in che modo vengono utilizzate le risorse del team dell’assistenza e quali sono gli aspetti da ottimizzare e migliorare.\n\nAttivando l’app, accetti i [Termini di utilizzo per le app create da Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Operazioni preliminari per l’app Cronometro\n\n1. Accedi all’account Zendesk Support e fai clic sull’icona Amministratore nella barra laterale.\n2. Seleziona **App > Marketplace**, quindi trova l’app Cronometro e fai clic sulla tile.\n3. Nella pagina dell’app Cronometro, fai clic su **Installa app** nell’angolo in alto a destra. Questa app è disponibile solo ai clienti con i piani Plus ed Enterprise.\n4. Inserisci il nome dell’app, seleziona le configurazioni che preferisci, quindi fai clic su **Installa**.\n5. Se stai usando i moduli ticket (parte del componente aggiuntivo Pacchetto produttività), seleziona **Amministratore > Gestisci > Moduli ticket** e aggiungi i campi ticket “Total time spent” (Tempo totale impiegato) e “Time spent since last update” (Tempo impiegato dall’ultimo aggiornamento) su ciascun modulo ticket.",
     "parameters": {
       "time_field_id": {
         "label": "ID campo temporale",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Pausa automatica",
         "helpText": "Il timer viene fermato quando l’agente esce dal ticket e riavviato quando torna sul ticket."
+      },
+      "resume_on_changes": {
+        "label": "Riavvia in presenza di modifiche",
+        "helpText": "Quando vengono apportate modifiche ai campi, una finestra modale chiede se riavviare il timer."
+      },
+      "resume_modal": {
+        "body": "Vuoi riavviare il timer?",
+        "no": "No",
+        "yes": "Sì"
       },
       "reset": {
         "label": "Azzera conteggio del tempo",
