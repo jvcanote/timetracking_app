@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Hiermee kunt u bijhouden hoeveel tijd u aan tickets besteedt.",
     "name": "Tijdregistratie",
+    "short_description": "Hiermee kunt u de tijd registreren die aan tickets wordt besteed.",
+    "long_description": "* Houd automatisch de tijd bij die wordt besteed aan uw Zendesk Support-tickets\n* Pas de app aan, zodat u over de juiste functionaliteit beschikt die uw team nodig heeft\n* Maak gebruik van Insights om gedetailleerde rapporten met uw tijdregistratiegegevens te maken\n\nDe app Tijdregistratie maakt het beheren van de prestaties van uw team en het verlenen van support gemakkelijker. Identificeer eenvoudig welke klanten de meest ingewikkelde tickets sturen, of welk probleemtype uw team de meeste tijd kost. Graaf diep in de tickets van agenten om te zien wat er zo veel tijd kost en in welke problemen zij een expert zijn.\n\n### Weet precies hoe uw team zijn tijd besteedt en waaraan\n\nHoud een logbestand bij van welke supportagenten aan een ticket hebben gewerkt en hoe lang elke interactie duurde. Leg automatisch de totaal bestede tijd vast zodra een agent een ticket bijwerkt of laat agenten de tijd handmatig vastleggen.\n\n### Gemakkelijk in te stellen en te gebruiken\n\nDe app Tijdregistratie hoeft niet door derden te worden geconfigureerd en aanmelden is niet nodig. Pas eenvoudig aan hoe de app Tijdregistratie wordt weergegeven en werkt voor uw supportteam, zodat de app naadloos aansluit op de bestaande workflow van uw team.\n\n### Maak rapporten over uw tijdregistraties en onderneem waar nodig actie\n\nU kunt meteen beginnen met rapporteren in Insights dankzij ingebouwde, aangepaste tijdregistratierapporten. Weet precies wat uw supportteam veel mankracht of tijd kost en ontdek waar u kunt optimaliseren en verbeteringen kunt doorvoeren.\n\nDoor deze app in te schakelen, gaat u akkoord met de [Gebruiksvoorwaarden van Gemaakt door Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Aan de slag met de app Tijdregistratie:\n\n1. Meld u aan bij uw Zendesk Support-account en klik op het pictogram Admin op de zijbalk.\n2. Selecteer **Apps > Marketplace**, zoek de app Tijdregistratie en klik op de tegel.\n3. Klik op de pagina van de app Tijdregistratie op **App installeren** rechtsboven. Deze app is alleen beschikbaar voor klanten met een Plus- of Enterprise-plan.\n4. Geef de naam voor de app op, selecteer de gewenste configuraties en klik op **Installeren**.\n5. Als u Ticketformulieren gebruikt (onderdeel van de add-on Productivity Pack), ga dan naar **Admin > Beheren > Ticketformulieren** en voeg de ticketvelden ‘Total time spent’ en ‘Time spent since last update’ toe aan Ticketformulieren.",
     "parameters": {
       "time_field_id": {
         "label": "Id van tijdveld",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Automatisch onderbreken",
         "helpText": "De timer wordt onderbroken als de agent van het ticket weg navigeert en wordt hervat als de agent weer terug is bij het ticket."
+      },
+      "resume_on_changes": {
+        "label": "Hervatten bij wijzigingen",
+        "helpText": "Wanneer er wijzigingen worden aangebracht in velden, wordt er een dialoogvenster weergegeven waarin wordt gevraagd of de timer moet worden hervat."
+      },
+      "resume_modal": {
+        "body": "Wilt u de timer hervatten?",
+        "no": "Nee",
+        "yes": "Ja"
       },
       "reset": {
         "label": "Huidige tijd opnieuw instellen",

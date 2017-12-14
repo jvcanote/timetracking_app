@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Ułatwia śledzenie czasu poświęcanego na obsługę zgłoszeń.",
     "name": "Monitorowanie czasu",
+    "short_description": "Ułatwia monitorowanie czasu poświęcanego na obsługę zgłoszeń.",
+    "long_description": "* Automatycznie monitoruj czas poświęcony na poszczególne zgłoszenia w Zendesk Support\n* Dostosuj aplikację, dodając dokładnie te funkcje, których potrzebuje Twój zespół\n* Twórz szczegółowe raporty z danych monitorowania czasu za pomocą aplikacji Insights\n\nAplikacja Monitorowanie czasu ułatwia zarządzanie wydajnością zespołu i ogólną wydajnością operacji wsparcia. Możesz łatwo identyfikować klientów, którzy wysyłają najtrudniejsze zgłoszenia lub których problemy zajmują zespołowi najwięcej czasu. Możesz też analizować zgłoszenia agenta, aby ustalić, co zabiera mu czas i w jakich problemach się specjalizuje.\n\n### Zdobywaj dokładne informacje o tym, jak i gdzie zespół spędza czas\n\nProwadź na bieżąco rejestr agentów wsparcia pracujących nad zgłoszeniem oraz czasów trwania poszczególnych interakcji. Możesz włączyć automatyczne rejestrowanie łącznego czasu poświęconego na zgłoszenie w chwili aktualizacji zgłoszenia przez agenta lub zezwolić na ręczne podawanie czasu.\n\n### Łatwość konfiguracji, dostosowywania oraz obsługi\n\nAplikacja Monitorowanie czasu nie wymaga żadnej konfiguracji ani loginu z zewnątrz. Aby bezproblemowo dopasowała się do aktualnej organizacji pracy zespołu wsparcia, wystarczy dostosować sposób jej wyświetlania i działania pod kątem zespołu.\n\n### Sporządzaj raporty z rejestrów czasu i działaj na ich podstawie\n\nDzięki łatwemu tworzeniu niestandardowych raportów z monitorowania czasu w aplikacji Insights możesz niezwłocznie zacząć korzystać z zalet raportowania. Będziesz dokładnie wiedzieć, co zajmuje zasoby zespołu wsparcia, i wykryjesz obszary wymagające optymalizacji oraz udoskonaleń.\n\nWłączając tę aplikację, wyrażasz zgodę na [Warunki użytkowania dotyczące aplikacji opracowanej przez Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Wprowadzenie do aplikacji Monitorowanie czasu:\n\n1. Zaloguj się na koncie Zendesk Support i kliknij ikonę Administracja w menu bocznym.\n2. Wybierz pozycje **Aplikacje > Marketplace**, znajdź aplikację Monitorowanie czasu i kliknij kafelek.\n3. Na stronie aplikacji Monitorowanie czasu kliknij przycisk **Zainstaluj aplikację** widoczny w prawym górnym rogu. Ta aplikacja jest dostępna tylko dla klientów korzystających z planów Plus i Enterprise.\n4. Wprowadź nazwę aplikacji, wybierz konfigurację i kliknij pozycję **Zainstaluj**.\n5. Jeśli korzystasz z funkcji Formularze zgłoszeń (składnika dodatku Pakiet wydajnościowy), przejdź do sekcji **Administracja > Zarządzaj > Formularze zgłoszeń** i do każdego formularza zgłoszenia dodaj pola zgłoszenia „Total time spent” (Poświęcony czas łącznie) oraz „Time spent since last update” (Czas poświęcony od ostatniej aktualizacji).",
     "parameters": {
       "time_field_id": {
         "label": "Identyfikator pola czasu",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Automatyczne wstrzymanie",
         "helpText": "Licznik jest wstrzymywany, gdy agent odchodzi od zgłoszenia, i wznawiany, gdy agent wraca do zgłoszenia."
+      },
+      "resume_on_changes": {
+        "label": "Wznów przy zmianach",
+        "helpText": "W razie wprowadzenia zmian w którychkolwiek polach pojawi się okno z pytaniem, czy ma zostać wznowione działanie licznika czasu."
+      },
+      "resume_modal": {
+        "body": "Chcesz wznowić działanie licznika czasu?",
+        "no": "Nie",
+        "yes": "Tak"
       },
       "reset": {
         "label": "Resetuj bieżący czas",

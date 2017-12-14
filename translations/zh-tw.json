@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "幫您追蹤工單花費的時間。",
     "name": "時間記錄",
+    "short_description": "幫您追蹤工單花費的時間。",
+    "long_description": "* 自動記錄您的每張 Zendesk Support 工單花費的時間\n* 自訂 app 以包含您團隊所需的功能\n* 運用 Insights 用時間記錄資料建立詳細報告\n\n「時間記錄」app 可使團隊業績管理及整體支援營運更加便捷。便於識別傳送最複雜工單的客戶，或您的團隊花最長時間解決的問題。往深處探究代理的工單，瞭解最占其時間的工作內容及其擅長的問題。\n\n### 瞭解您的團隊如何及在哪個方面花費時間\n\n保留支援代理的記錄，瞭解其解決的工單及每次互動的持續時間。代理更新工單時，可自動記錄總花費時間，或者可使其手動輸入時間。\n\n### 易於設定、自訂及使用\n\n「時間記錄」App 無需任何協力廠商設定或登入。只需自訂適合您支援團隊的「時間記錄」app 顯示和工作方式，即可隨選即用至團隊目前的工作流程中。\n\n### 報告時間記錄並採取動作\n\n立即使用 Insights 易於設定的自訂時間記錄報告。瞭解耗費支援團隊資源的內容，尋找最需最佳化及改善的方面。\n\n啟用此 app 即表示您同意 [Zendesk 自建使用條款](https://www.zendesk.com/company/built-by-zendesk-agmt/)。",
+    "installation_instructions": "### 開始使用「時間記錄」app：\n\n1.登入 Zendesk Support 帳戶，再按一下側欄中的「管理員」圖示。\n2.選取 **App > Marketplace**，再尋找「時間記錄」app 並按一下該圖磚。\n3.在「時間記錄」app 頁面上，按一下右上角的**安裝 App**。此 app 僅對 Plus 和 Enterprise 計劃的客戶可用。\n4.輸入 app 名稱並選取設定，再按一下**安裝**。\n5.若您使用工單表單（工作效率套件附加元件的一部分），前往**管理員 > 管理 > 工單表單**，新增「Total time spent（總花費時間）」和「Time spent since last update（上次更新後花費時間）」工單欄位至您的每張工單表單。",
     "parameters": {
       "time_field_id": {
         "label": "時間欄位 ID",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "自動暫停",
         "helpText": "代理離開工單時計時器暫停，代理返回工單時計時器繼續。"
+      },
+      "resume_on_changes": {
+        "label": "變更時繼續",
+        "helpText": "變更任意欄位時，一個強制回應對話方塊將詢問是否要繼續計時器。"
+      },
+      "resume_modal": {
+        "body": "您是否要繼續計時器？",
+        "no": "否",
+        "yes": "是"
       },
       "reset": {
         "label": "重設目前時間",

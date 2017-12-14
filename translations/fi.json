@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Auttaa pitämään kirjaa tiketteihin käytetystä ajasta.",
     "name": "Ajankäytön seuranta",
+    "short_description": "Auttaa pitämään kirjaa tiketteihin käytetystä ajasta.",
+    "long_description": "* Seuraa automaattisesti jokaiseen Zendesk Support -tikettiin käytettyä aikaa\n* Mukauta sovellus sisältämään tarkat toiminnot, joita tiimisi tarvitsee\n* Käytä hyväksi Insightsia luodaksesi tarkkoja raportteja, joissa on ajankäytön seurantatiedot\n\nAjankäytön seuranta -sovellus helpottaa tiimin suorituskyvyn hallintaa ja tukitoimintoja yleisesti ottaen. Tunnista helposti, mitkä asiakkaat lähettävät kaikkein monimutkaisimpia tikettejä tai minkä tyyppisten ongelmien ratkaiseminen vie kaikkein kauimmin. Poraudu tukihenkilön tiketteihin saadaksesi selville, mihin he käyttävät aikaansa ja missä ongelmissa he ovat asiantuntijoita.\n\n### Tiedä täsmälleen, mihin tiimisi käyttää aikaa\n\nSeuraa jatkuvasti, mitkä tukihenkilöt ovat työskennelleet tiketin parissa ja miten kauan kukin vuorovaikutus kesti. Kirjaa automaattisesti käytetty kokonaisaika välittömästi, kun tukihenkilö päivittää tiketin tai anna hänen kirjata aika manuaalisesti.\n\n### Helppo asentaa, mukauttaa ja käyttää\n\nAjankäytön seuranta -sovellus ei vaadi kolmannen osapuolen asennustoimia tai sisäänkirjautumista. Mukauta yksinkertaisesti, miten Ajankäytön seuranta -sovellus esittää tiedot ja toimii tukitiimillesi, jotta se sopisi saumattomasti tiimin nykyiseen työnkulkuun.\n\n### Raportoi ajankäyttö ja ryhdy toimiin\n\nAloita raportointi välittömästi helposti laadittavilla mukautetuilla ajankäytön seurantaraporteilla Insightsin kautta. Tiedät täsmälleen, mikä vie tukitiimin resursseja, ja löydät parhaat optimointia ja parannuksia vaativat alueet.\n\nOttamalla tämän sovelluksen käyttöön hyväksyt [Zendeskin kehittämä -käyttöehdot](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Ajankäytön seuranta -sovelluksen käytön aloittaminen:\r\n\r\n1. Kirjaudu sisään Zendesk Support -tilille ja napsauta sitten sivupalkin Järjestelmänvalvoja-kuvaketta.\r\n2. Valitse **Sovellukset > Sovelluskauppa**, etsi Ajankäytön seuranta -sovellus ja napsauta ruutua.\r\n3. Napsauta Ajankäytön seuranta -sivun oikeassa yläkulmassa **Asenna sovellus**.\r\n4. Käytettävissä vain Plus- ja Enterprise-suunnitelmien asiakkaille.\r\n4. Kirjoita sovelluksen nimi, valitse haluamasi määritykset ja napsauta **Asenna**.\r\n5. Jos käytät tikettilomakkeita (osa tuottavuuspakkausta), siirry kohtaan **Järjestelmänvalvoja > Hallitse > Tikettilomakkeet** ja lisää tikettikentät ‘Total time spent’ (Käytetty kokonaisaika) ja ‘Time spent since last update’ (Viimeisen päivityksen jälkeen käytetty aika) jokaiseen tikettilomakkeeseen.",
     "parameters": {
       "time_field_id": {
         "label": "Aikakentän tunnus",
@@ -21,15 +23,24 @@
       },
       "manual_pause_resume": {
         "label": "Näytä ajastimen ohjaimet",
-        "helpText": "Tukihenkilöt voivat pysäyttää tai nollata ajastimen manuaalisesti."
+        "helpText": "Tukihenkilöt voivat pysäyttää tai palauttaa ajastimen manuaalisesti."
       },
       "auto_pause_resume": {
         "label": "Automaattinen tauko",
         "helpText": "Ajastin pysähtyy, kun tukihenkilö siirtyy pois tiketistä, ja jatkaa, kun tukihenkilö palaa takaisin tikettiin."
       },
+      "resume_on_changes": {
+        "label": "Jatka muutosten yhteydessä",
+        "helpText": "Kun kenttiin tehdään muutoksia, ohjelma kysyy, haluatko jatkaa ajanottoa."
+      },
+      "resume_modal": {
+        "body": "Haluatko jatkaa ajanottoa?",
+        "no": "Ei",
+        "yes": "Kyllä"
+      },
       "reset": {
         "label": "Nollaa nykyinen aika",
-        "helpText": "Tukihenkilöt voivat nollata tikettiin tällä hetkellä käytetyn ajan."
+        "helpText": "Tukihenkilöt voivat palauttaa tikettiin tällä hetkellä käytetyn ajan."
       },
       "time_submission": {
         "label": "Muokkaa aikalähetystä",

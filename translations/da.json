@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Hjælper dig med at spore tid brugt på tickets.",
     "name": "Tidsregistrering",
+    "short_description": "Hjælper dig med at registrere den tid, der bliver brugt på tickets.",
+    "long_description": "* Hold automatisk styr på den tid, som er blevet brugt på hver af dine Zendesk Support-tickets\n* Brugerdefiner appen for at inkludere den nøjagtige funktionalitet, som dit team har behov for\n* Gør brug af Insights til at oprette detaljerede rapporter med dine tidsregistreringsdata\n\nAppen Tidsregistrering gør det nemmere at administrere dit teams performance og generelle supportarbejdsprocesser. Identificer nemt, hvilke kunder, der indsender de mest komplicerede tickets, eller hvilke problemtyper, det tager længst tid for dit team at løse. Kig nærmere på agenters tickets for at finde ud af, hvad de bruger tid på, og hvilke problemer, de er eksperter i.\n\n### Find ud af helt nøjagtigt hvordan og hvor dit team bruger deres tid\n\nFør en løbende log på de supportagenter, som har arbejdet på en ticket, og hvor længe hver udveksling varede. Log automatisk den samlede tid, der blev brugt, så snart din agent opdaterer en ticket, eller lad dem indtaste deres tid manuelt.\n\n### Nem at installere, tilpasse og bruge\n\nTidsregistrering-appen kræver ikke nogen tredjepartsinstallation eller login. Du skal blot tilpasse, hvordan Tidsregistrering-appen skal vises og fungere for dit supportteam, så den passer ind i dit teams aktuelle arbejdsgang uden besvær. \n\n### Rapportér på dine tidslogger og skrid til handling\n\nBegynd at rapportere med det samme gennem Insights med brugerdefinerede tidsregistreringsrapporter, som er nemme at konstruere. Find ud af helt nøjagtigt hvad det er, der tapper dit supportteams ressourcer, og find de bedste områder for optimering og forbedring.\n\nVed at aktivere denne app accepterer du [Brugsbetingelser for Bygget af Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Kom godt i gang med appen Tidsregistrering:\n\n1. Log ind på din Zendesk Support-konto, og klik derefter på Admin-ikonet på sidepanelet.\n2. Vælg **Apps > Markedsplads**, find derefter appen Tidsregistrering, og klik på ruden.\n3. På siden for Tidsregistrering-appen klikker du på **Installer app** i det øverste højre hjørne. Denne app er kun tilgængelig for kunder, der har Plus- eller Enterprise-planerne.\n4. Indtast et navn til appen, vælg de ønskede konfigurationer, og klik derefter på **Installer**.\n5. Hvis du bruger Ticket-formularer (en del af Produktivitetspakke-tilføjelsesprogrammet), går du til **Admin > Administrer > Ticket-formularer** og føjer ticket-felterne ‘Total time spent’ (Tid brugt i alt) og ‘Time spent since last update’ (Tid brugt siden sidste opdatering) til hver af dine ticket-formularer.",
     "parameters": {
       "time_field_id": {
         "label": "Tidsfelt-id",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Auto-pause",
         "helpText": "Timeren standser midlertidigt, når agenten navigerer væk fra ticketen, og går i gang igen, når agenten er vendt tilbage til ticketen."
+      },
+      "resume_on_changes": {
+        "label": "Start igen ved ændringer",
+        "helpText": "Når der foretages ændringer til et felt, vil et modal spørge, om timeren skal startes igen."
+      },
+      "resume_modal": {
+        "body": "Vil du starte timeren igen?",
+        "no": "Nej",
+        "yes": "Ja"
       },
       "reset": {
         "label": "Nulstil aktuel tid",

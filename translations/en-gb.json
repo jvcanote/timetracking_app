@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Helps you track time spent on tickets.",
     "name": "Time Tracking",
+    "short_description": "Helps you track time spent on tickets.",
+    "long_description": "* Automatically track the time spent on each of your Zendesk Support tickets\n* Customise the app to include the exact functionality that your team needs\n* Leverage Insights to create detailed reports with your time tracking data\n\nThe Time Tracking app makes managing your team’s performance and overall support operations easier. Easily identify which customers send in the most complicated tickets, or which issue types take the longest for your team to resolve. Dig down into an agent’s tickets to discover what’s taking up their time and which issues they’re experts on.\n\n### Know exactly how and where your team is spending their time\n\nKeep a running log of which support agents have worked on a ticket and how long each interaction lasted. Automatically log the total time spent the second your agent updates a ticket or let them manually enter their time.\n\n### Easy to set up, customise, and use\n\nThe Time Tracking App doesn’t require any third party setup or login. Simply customise how the Time Tracking app displays and works for your support team, for a seamless fit into your team’s current workflow.\n\n### Report on your time logs and take action\n\nStart reporting right away with easily built custom time tracking reports through Insights. Know exactly what’s draining your support team’s resources and find the best areas for optimisation and improvement.\n\nBy enabling this app, you agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Getting started with the Time Tracking app:\n\n1. Sign in to your Zendesk Support account, then click the Admin icon in the sidebar.\n2. Select **Apps > Marketplace**, then find the Time Tracking app and click the tile.\n3. On the Time Tracking app page, click **Install app** in the upper-right corner. This app is only available to customers on the Plus and Enterprise plans.\n4. Enter a name for the app, select the configurations you want, then click **Install**.\n5. If you are using Ticket Forms (part of the Productivity Pack add-on), go to **Admin > Manage > Ticket Forms** and add the ticket fields ‘Total time spent’ and ‘Time spent since last update’ to each of your Ticket Forms.",
     "parameters": {
       "time_field_id": {
         "label": "Time Field ID",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Auto pause",
         "helpText": "The timer pauses when the agent navigates away from the ticket and resumes when the agent is back on the ticket."
+      },
+      "resume_on_changes": {
+        "label": "Resume on changes",
+        "helpText": "When changes are made to any fields, a modal will ask if the timer should be resumed."
+      },
+      "resume_modal": {
+        "body": "Would you like to resume the timer?",
+        "no": "No",
+        "yes": "Yes"
       },
       "reset": {
         "label": "Reset current time",

@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Hjälper till att spåra tid som ägnas åt ärenden.",
     "name": "Tidkort",
+    "short_description": "Hjälper till att spåra tid som ägnas åt ärenden.",
+    "long_description": "* Spåra den tid som spenderats på vart och ett av dina Zendesk Support-ärenden helt automatiskt\n* Anpassa appen så att den omfattar precis de funktioner ditt team behöver\n* Dra nytta av Insights för att skapa detaljerade rapporter med dina tidsuppföljningsdata \n\nAppen Tidkort gör det enklare att hantera ditt teams prestationer och totala supportverksamhet. Identifiera de kunder som skickar in de mest komplicerade ärendena eller vilka typer av problem som tar längst tid för ditt team att lösa. Utforska en agents ärenden för att upptäcka vad som förbrukar agentens tid och vilka problem de är experter på.\n\n### Skaffa exakt kunskap om hur och var ditt team spenderar sin tid\n\nFör en löpande logg över supportagenter som har arbetat med ett ärende och hur länge varje interaktion varade. Dra nytta av automatisk loggning av den totala spenderade tiden omedelbart när en agent uppdaterar ett ärende eller låt agenten ange sin tid manuellt.\n\n### Lätt att konfigurera, anpassa och använda\n\nAppen Tidkort kräver inga inställningar eller inloggningar hos tredje part. Allt du behöver göra är att anpassa hur Tidkort visas och fungerar för ditt supportteam för en sömlös inpassning i ditt teams aktuella arbetsflöde.\n\n### Skapa rapporter från dina tidsloggar och vidta åtgärder\n\nBörja rapportera direkt med egna tidsuppföljningsrapporter som är lätta att bygga via Insights. Skaffa exakta kunskaper om vad som förbrukar ditt supportteams resurser och hitta de bästa optimerings- och förbättringsområdena.\n\nNär du aktiverar denna app innebär det att du samtycker till [användningsvillkoren för Built by Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Så här kommer du igång med appen Tidkort:\r\n\r\n1. Logga in på ditt Zendesk Support-konto och klicka sedan på administratörsikonen på sidopanelen.\r\n2. Välj **Appar > Marknad** och sök sedan efter appen Tidkort och klicka på dess tile.\r\n3. Klicka på **Installera app** i det övre högra hörnet på appsidan Tidkort. Denna app är endast tillgänglig för Plus- och Enterprise-kunder.\r\n4. Ange ett namn för appen, välj de inställningar du behöver och klicka sedan på **Installera**.\r\n5. Om du använder ärendeformulär (ingår i tillägget Productivity Pack) ska du gå till **Admin > Hantera > Ärendeformulär** och lägga till ärendefälten ”Total time spent” (Sammanlagd spenderad tid) och ”Time spent since last update” (Tid spenderad sedan senaste uppdatering) på vart och ett av dina ärendeformulär.",
     "parameters": {
       "time_field_id": {
         "label": "Tidsfält-ID",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Automatisk paus",
         "helpText": "Timern gör en paus när agenten lämnar ärendet och återupptas när agenten kommer tillbaka till ärendet."
+      },
+      "resume_on_changes": {
+        "label": "Återuppta vid ändringar",
+        "helpText": "När ändringar görs i något fält frågar en modal dialogruta om timern ska återupptas."
+      },
+      "resume_modal": {
+        "body": "Vill du återuppta timern?",
+        "no": "Nej",
+        "yes": "Ja"
       },
       "reset": {
         "label": "Återställ aktuell tid",

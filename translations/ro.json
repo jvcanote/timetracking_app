@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Vă ajută să urmăriți timpul petrecut cu tichetele.",
     "name": "Cronometru",
+    "short_description": "Vă ajută să urmăriți timpul petrecut cu tichetele.",
+    "long_description": "* Urmăriți automat timpul petrecut cu fiecare dintre tichetele dumneavoastră Zendesk Support\n* Personalizați aplicația pentru a include funcționalitatea exactă de care are nevoie echipa dumneavoastră\n* Folosiți Insights pentru a crea rapoarte detaliate cu datele cronometrului\n\n Aplicația Cronometru facilitează gestionarea performanțelor echipei dumneavoastră și ale operațiunilor de asistență globale. Identificați cu ușurință clienții care trimit cele mai complicate tichete sau tipurile de probleme a căror rezolvare de către echipa dumneavoastră durează cel mai mult. Explorați tichetele unui agent pentru a descoperi ce îi consumă mai mult timp și în ce probleme este expert.\n\n### Știți cu exactitate cum și pentru ce își petrece timpul echipa dumneavoastră\n\nPăstrați o evidență dinamică a agenților de asistență care au lucrat la un tichet și a duratei fiecărei interacțiuni. Înregistrați automat timpul total petrecut exact din momentul în care agentul actualizează un tichet sau permiteți agenților să își introducă manual timpul.\n\n### Ușor de configurat, de personalizat și de utilizat\n\n Aplicația Cronometru nu necesită nicio terță configurare sau autentificare. Pur și simplu personalizați modul în care aplicația Cronometru se afișează și funcționează pentru echipa dumneavoastră de asistență, pentru o potrivire perfectă cu fluxul de lucru curent al echipei dumneavoastră.\n\n### Obțineți rapoarte cu privire la desfășurătoare și luați măsuri\n\nÎncepeți raportarea imediat, cu rapoarte de cronometrare ușor de creat și de personalizat, prin intermediul Insights. Știți cu exactitate ce chestiuni epuizează resursele echipei dumneavoastră de asistență și găsiți cele mai potrivite arii de optimizare și îmbunătățire.\n\nActivând această aplicație, sunteți de acord cu [Termenii de utilizare pentru produsele desemnate prin „Conceput de Zendesk”] (https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Ghid introductiv pentru aplicația Cronometru:\r\n\r\n1. Autentificați-vă în contul Zendesk Support, apoi faceți clic pe pictograma Administrator din bara laterală.\r\n2. Selectați **Aplicații > Magazin**, apoi găsiți aplicația Cronometru și faceți clic pe dală.\r\n3. În pagina aplicației Cronometru, faceți clic pe **Instalare aplicație** în colțul din dreapta-sus. Această aplicație este disponibilă numai clienților care utilizează abonamentele Plus și Enterprise.\r\n4. Introduceți un nume pentru aplicație, selectați configurațiile dorite, apoi faceți clic pe **Instalare**.\r\n5. Dacă utilizați Formulare pentru tichete (parte din programul de completare Productivity Pack), mergeți la **Administrator > Gestionare > Formulare pentru tichete** și adăugați câmpurile pentru tichete „Total time spent” (Timp total petrecut) și „Time spent since last update” (Timp petrecut de la ultima actualizare) în fiecare dintre formularele pentru tichete.",
     "parameters": {
       "time_field_id": {
         "label": "Identificator câmp timp",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Punere automată pe pauză",
         "helpText": "Cronometrul este pus pe pauză atunci când agentul părăsește tichetul și este repornit atunci când agentul revine la tichet."
+      },
+      "resume_on_changes": {
+        "label": "Repornire la modificări",
+        "helpText": "Când se efectuează modificări în orice câmpuri, o casetă de dialog vă va întreba dacă doriți să reporniți cronometrul."
+      },
+      "resume_modal": {
+        "body": "Doriți să reporniți cronometrul?",
+        "no": "Nu",
+        "yes": "Da"
       },
       "reset": {
         "label": "Resetare timp curent",

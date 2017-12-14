@@ -1,7 +1,9 @@
 {
   "app": {
-    "description": "Pomáhá sledovat dobu strávenou na tiketech.",
     "name": "Sledování doby",
+    "short_description": "Pomáhá sledovat dobu strávenou na tiketech.",
+    "long_description": "* Automaticky sledujte dobu strávenou na každém z vašich tiketů Zendesk Supportu.\n* Přizpůsobte aplikaci tak, aby obsahovala přesně ty funkce, které váš tým potřebuje.\n* Využijte software Insights k vytvoření podrobných výkazů s daty sledování doby.\n\nAplikace Sledování doby usnadňuje řízení výkonu vašeho týmu i celou činnost podpory. Snadno rozpoznáte, kteří zákazníci odesílají ty nejsložitější tikety, nebo zjistíte typy problémů, k jejichž vyřešení potřebuje váš tým nejdelší dobu. Prozkoumejte tikety agentů a zjistěte, co jim zabírá čas a na které problémy jsou odborníky.\n\n### Přesně poznejte, jak a kde váš tým tráví svůj čas\n\nVeďte průběžný protokol, který ukazuje, kteří agenti podpory na tiketu pracovali a jak dlouho každá komunikace trvala. Automaticky evidujte celkovou strávenou dobu v okamžiku, kdy váš agent aktualizuje tiket, nebo je nechte svoji dobu zadávat ručně.\n\n### Snadné nastavení, přizpůsobení a použití\n\nAplikace Sledování doby nevyžaduje žádnou instalaci třetích stran ani přihlášení. Jednoduše přizpůsobte, jak se má aplikace Sledování doby zobrazovat a pomáhat vašemu týmu podpory, a můžete ji bez problémů integrovat do aktuálního pracovního postupu vašeho týmu.\n\n### Vytvořte výkaz ze svých časových protokolů a přijměte potřebná opatření\n\nZačněte hned teď snadno vytvářet vlastní výkazy s daty sledování doby pomocí softwaru Insights. Získejte přesnou představu o tom, co nadměrně zatěžuje zdroje vašeho týmu podpory, a najděte nejvhodnější oblasti pro optimalizaci a zlepšení.\n\nTím, že zapnete tuto aplikaci, souhlasíte s [Podmínkami používání služby Vytvořeno společností Zendesk](https://www.zendesk.com/company/built-by-zendesk-agmt/).",
+    "installation_instructions": "### Začínáme s aplikací Sledování doby:\n\n1. Přihlaste se do svého účtu Zendesk Supportu a klikněte na ikonu administrátora v postranním panelu.\n2. Vyberte **Aplikace > Marketplace**, pak najděte aplikaci Sledování doby a klikněte na její dlaždici.\n3. V pravém horním rohu stránky aplikace Sledování doby klikněte na **Nainstalovat aplikaci**. Tato aplikace je dostupná pouze pro zákazníky s tarify Plus a Enterprise.\n4. Zadejte název aplikace, nakonfigurujte požadované nastavení a potom klikněte na tlačítko **Nainstalovat**.\n5. Pokud používáte Formuláře tiketů (součást doplňku Balík produktivity), přejděte na **Administrátor > Správa > Formuláře tiketů** a přidejte pole tiketu „Total time spent“ (Celková strávená doba) a „Time spent since last update“ (Doba strávená od poslední aktualizace) do každého ze svých formulářů tiketů.",
     "parameters": {
       "time_field_id": {
         "label": "ID pole doby",
@@ -26,6 +28,15 @@
       "auto_pause_resume": {
         "label": "Automatická pauza",
         "helpText": "Časovač se pozastaví, když agent odejde od tiketu, a obnoví se, když se agent k tiketu vrátí."
+      },
+      "resume_on_changes": {
+        "label": "Restartovat při změnách",
+        "helpText": "Pokud dojde ke změně některých polí, zobrazí se modální okno s dotazem, zda se má restartovat časovač."
+      },
+      "resume_modal": {
+        "body": "Chcete restartovat časovač?",
+        "no": "Ne",
+        "yes": "Ano"
       },
       "reset": {
         "label": "Vynulovat aktuální dobu",
@@ -58,7 +69,7 @@
       "timelogs": "Časový  záznam",
       "timelogs_table": {
         "agent": "Agent",
-        "time": "Doba",
+        "time": "Doba trvání",
         "status": "Stav"
       }
     },
